@@ -63,14 +63,66 @@ class MainActivity : AppCompatActivity() {
         println(mapa)
 
 
-        println("La suma de 80  y 20 es: ${calculadora(80,20, :: suma)}")
 
 
         var yago = Person("yago", 22, 1.89f)
         if (yago.checkPolicia ( ::inColombia ))
             println("${yago.name} es válido para Colombia")
 
+
+        // LAMBDAS -------------------------------------------------
+        var funcion = {x:Int , y: Int -> x+y}
+        println("La suma de 80  y 20 es: ${calculadora(80,20, funcion)}")
+
+        funcion = {x:Int, y:Int -> x-y}
+        println("La resta de 80  y 20 es: ${calculadora(80,20, funcion)}")
+
+
+        println("La resta de 80  y 20 es: ${calculadora(80,20, {x:Int, y:Int -> x+y})}")
+
+        println("La potencia de 2 elevado a 5 es: ${calculadora(2,5
+        ) { x, y ->
+            var valor = 1
+            for (i in 1..y) valor *= x
+
+            valor
+        }
+        }")
+
+        // Modificar lambdas -----------------
+        var array4 = IntArray(10){5}
+        println(array4.toString())
+
+        println("---------------")
+        var array5 = IntArray(10){it}
+        println(show(array5.toTypedArray()))
+        println(array5.joinToString())
+
+        println("-------------")
+        var array6 = IntArray(10){it*2}
+        println(array6.joinToString())
+
+        var array7= IntArray(10) {i -> i*3 }
+        println(array7.joinToString())
+
+
+        var suma = 0;
+        recorrerArray(array7){
+            suma += it
+        }
+
+        println("La suma del array7 es: $suma")
+
+        var tyyype:TypeAlias;
+
     }
+
+    private fun recorrerArray(array: IntArray, fn: (Int) -> Unit){
+        for (i in array)
+            fn(i)
+    }
+
+
 
     private fun String.noSpaces():String{
         return this.replace(" ","");
@@ -88,6 +140,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun inColombia(h:Float):Boolean{
         return h>=1.6f
+    }
+
+    private fun <T> show(array: Array<T>):String{
+        var s = "Array: ";
+
+        for ((i) in array.withIndex()){
+            s += array[i].toString();
+        }
+
+        return s;
     }
 
 }

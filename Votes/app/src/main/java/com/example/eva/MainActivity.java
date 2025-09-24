@@ -21,6 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    EditText edTxt;
+    Button btnAdd,btnContinuar,btnAddPersonas, btnMinusPersonas;
+    ListView lv;
+
+    ArrayList<String> respuestas;
+
+    ArrayAdapter<String> adapter;
+
+    TextView txtContador;
+
+    int contador = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,30 +45,54 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        ArrayList<String> respuestas = new ArrayList<>(List.of("Paella"));
+        respuestas = new ArrayList<>(List.of("Paella"));
 
-        EditText edTxt = findViewById(R.id.edTxt);
-        Button btnAdd = findViewById(R.id.btnAdd);
-        ListView lv = findViewById(R.id.lv);
+         edTxt = findViewById(R.id.edTxt);
+         btnAdd = findViewById(R.id.btnAdd);
+         lv = findViewById(R.id.lv);
+         btnContinuar = findViewById(R.id.btnContinuar);
+         btnAddPersonas = findViewById(R.id.btnAddPersonas);
+         btnMinusPersonas = findViewById(R.id.btnMinusPersonas);
+         txtContador = findViewById(R.id.txtContador);
+
+         txtContador.setText(String.valueOf(contador));
+
 
         ArrayAdapter<String> adapter  =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, respuestas);
         lv.setAdapter(adapter);
 
 
-        btnAdd.setOnClickListener(view -> {
-            System.out.println(edTxt.getText());
-            if (!edTxt.getText().equals("")){
-                respuestas.add(edTxt.getText().toString());
-                adapter.notifyDataSetChanged();
-                Toast.makeText(this, "Respuesta añadida", Toast.LENGTH_SHORT);
-            }
-        });
+        btnAdd.setOnClickListener(view -> addItemsToList());
+        btnAddPersonas.setOnClickListener(view -> addPersonas());
+        btnMinusPersonas.setOnClickListener(view -> minusPersonas());
+        btnContinuar.setOnClickListener(view -> startVoteActivity());
+    }
+
+    private void startVoteActivity() {
+        Intent intent = new Intent(this, VoteActivity.class);
+        intent.putExtra("listOptions", respuestas);
+        intent.putExtra("contadorPersonas", contador);
+        startActivity(intent);
+    }
 
 
+    private void addItemsToList(){
+        System.out.println(edTxt.getText());
+        if (!edTxt.getText().equals("")){
+            respuestas.add(edTxt.getText().toString());
+            adapter.notifyDataSetChanged();
+            Toast.makeText(this, "Respuesta añadida", Toast.LENGTH_SHORT);
+        }
+    }
 
+    private void minusPersonas() {
+        if (contador>0) {contador--;};
+        txtContador.setText(String.valueOf(contador));
+    }
 
-
-
+    private void addPersonas(){
+        contador++;
+        txtContador.setText(String.valueOf(contador));
     }
 
 

@@ -18,6 +18,7 @@
 
     <Button
         android:id="@+id/btnAdd"
+        android:text="+"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -32,6 +33,56 @@
         app:layout_constraintTop_toBottomOf="@+id/btnAdd"
         app:layout_constraintBottom_toBottomOf="parent">
     </ListView>
+
+    <Button
+        android:id="@+id/btnContinuar"
+        android:text="Continue to vote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/lv"
+        app:layout_constraintEnd_toEndOf="parent">
+    </Button>
+
+    <TextView
+        android:id="@+id/txtTitlePersonas"
+        android:text="Cuantas personas participarán en la votación?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnContinuar"
+        app:layout_constraintStart_toStartOf="parent">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitlePersonas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btnAddPersonas"
+            android:text="+"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtContador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnMinusPersonas"
+            android:text="-"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+
 
 
 

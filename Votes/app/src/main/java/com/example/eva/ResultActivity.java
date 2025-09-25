@@ -11,7 +11,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class ResultActivity extends AppCompatActivity {
 
-    String txtGanador;
+    TextView txtGanador;
+    String ganador;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +26,12 @@ public class ResultActivity extends AppCompatActivity {
             return insets;
         });
 
+        txtGanador = findViewById(R.id.txtGanador);
+
         Bundle extras = getIntent().getExtras();
-
         if (extras != null) {
-            txtGanador = extras.getString("txtGanador");
-
+            ganador = extras.getString("ganador");
+            txtGanador.setText(ganador);
         }
 
     }

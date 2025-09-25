@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -64,8 +65,10 @@ public class VoteActivity extends AppCompatActivity {
         if (mapOptions.containsKey(option)) {
             int valor = mapOptions.get(option);
             mapOptions.put(option, valor++);
+        } else {
+            mapOptions.put(option, 1);
         }
-
+        contadorRespuestas++;
         comprobarPersonas();
     }
 
@@ -83,22 +86,27 @@ public class VoteActivity extends AppCompatActivity {
         Iterator<Map.Entry<String, Integer>> it = set.iterator();
 
         Map.Entry<String, Integer> mayor = null;
+        boolean empate = false;
 
         while (it.hasNext()) {
             Map.Entry<String, Integer> i = it.next();
 
             if (mayor == null) {
                 mayor = i;
-            } else {
-                if (i.getValue() > mayor.getValue()) {
-                    mayor = i;
-                }
+            } else if (i.getValue() > mayor.getValue()) {
+                mayor = i;
+                empate = false;
+            } else if (i.getValue() == mayor.getValue()) {
+                empate = true;
             }
-
-
         }
 
-        return mayor.getKey();
+        if (empate) {
+            return "Empate";
+        } else {
+            return mayor.getKey();
+        }
+
     }
 
 }

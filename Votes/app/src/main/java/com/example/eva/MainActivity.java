@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     EditText edTxt;
-    Button btnAdd,btnContinuar,btnAddPersonas, btnMinusPersonas;
+    Button btnAdd, btnContinuar, btnAddPersonas, btnMinusPersonas;
     ListView lv;
 
     ArrayList<String> respuestas;
@@ -47,18 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
         respuestas = new ArrayList<>(List.of("Paella"));
 
-         edTxt = findViewById(R.id.edTxt);
-         btnAdd = findViewById(R.id.btnAdd);
-         lv = findViewById(R.id.lv);
-         btnContinuar = findViewById(R.id.btnContinuar);
-         btnAddPersonas = findViewById(R.id.btnAddPersonas);
-         btnMinusPersonas = findViewById(R.id.btnMinusPersonas);
-         txtContador = findViewById(R.id.txtContador);
+        edTxt = findViewById(R.id.edTxt);
+        btnAdd = findViewById(R.id.btnAdd);
+        lv = findViewById(R.id.lv);
+        btnContinuar = findViewById(R.id.btnContinuar);
 
-         txtContador.setText(String.valueOf(contador));
+        btnAddPersonas = findViewById(R.id.btnAddPersonas);
+        btnMinusPersonas = findViewById(R.id.btnMinusPersonas);
+        txtContador = findViewById(R.id.txtContador);
 
+        txtContador.setText(String.valueOf(contador));
 
-        ArrayAdapter<String> adapter  =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, respuestas);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, respuestas);
         lv.setAdapter(adapter);
 
 
@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void addItemsToList(){
+    private void addItemsToList() {
         System.out.println(edTxt.getText());
-        if (!edTxt.getText().equals("")){
+        if (!edTxt.getText().equals("")) {
             respuestas.add(edTxt.getText().toString());
             adapter.notifyDataSetChanged();
             Toast.makeText(this, "Respuesta añadida", Toast.LENGTH_SHORT);
@@ -86,15 +86,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void minusPersonas() {
-        if (contador>0) {contador--;};
+        if (contador > 0) {
+            contador--;
+        }
+        ;
         txtContador.setText(String.valueOf(contador));
     }
 
-    private void addPersonas(){
+    private void addPersonas() {
         contador++;
         txtContador.setText(String.valueOf(contador));
     }
-
 
 
 }

@@ -1,15 +1,11 @@
 package com.example.eva;
 
 import android.content.Intent;
-import android.icu.text.Edits;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +14,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -28,6 +23,7 @@ public class VoteActivity extends AppCompatActivity {
     ArrayList<String> options;
     ListView lvOptions;
     ArrayAdapter<String> adapter;
+    LinearLayout layout;
 
     Map<String, Integer> mapOptions = new TreeMap<>();
     int contadorPersonas = 0;
@@ -53,12 +49,35 @@ public class VoteActivity extends AppCompatActivity {
         }
 
         lvOptions = findViewById(R.id.ltvOptions);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, options);
+        layout = findViewById(R.id.main);
 
-        lvOptions.setAdapter(adapter);
 
-        lvOptions.setOnItemClickListener((adapterView, view, i, l) -> anhadirConteo(adapter.getItem(i)));
 
+
+            crearBotones(options);
+
+
+
+//        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, options);
+//        lvOptions.setAdapter(adapter);
+//        lvOptions.setOnItemClickListener((adapterView, view, i, l) -> anhadirConteo(adapter.getItem(i)));
+
+    }
+
+    private void crearBotones(ArrayList<String> opciones){
+        layout.removeAllViews();
+        int i = 0;
+
+        for (String opcion :
+                opciones) {
+            Button button = new Button(this);
+            button.setText(opcion);
+
+            int finalI = i++;
+            button.setOnClickListener(view -> {
+                anhadirConteo(opcion);
+            });
+        }
     }
 
     private void anhadirConteo(String option) {

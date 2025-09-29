@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     EditText edTxt;
@@ -77,19 +78,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addItemsToList() {
-        System.out.println(edTxt.getText());
+
+        //Pattern.compile();
+
         if (!edTxt.getText().equals("")) {
-            respuestas.add(edTxt.getText().toString());
+            String opcion = edTxt.getText().toString();
+            respuestas.add(opcion);
+            edTxt.setText("");
             adapter.notifyDataSetChanged();
-            Toast.makeText(this, "Respuesta añadida", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Respuesta " + opcion + " añadida", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void minusPersonas() {
         if (contador > 0) {
             contador--;
-        }
-        ;
+        };
         txtContador.setText(String.valueOf(contador));
     }
 

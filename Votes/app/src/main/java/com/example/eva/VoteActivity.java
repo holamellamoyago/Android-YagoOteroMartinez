@@ -52,10 +52,7 @@ public class VoteActivity extends AppCompatActivity {
         layout = findViewById(R.id.main);
 
 
-
-
-            crearBotones(options);
-
+        crearBotones(options);
 
 
 //        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, options);
@@ -64,12 +61,11 @@ public class VoteActivity extends AppCompatActivity {
 
     }
 
-    private void crearBotones(ArrayList<String> opciones){
+    private void crearBotones(ArrayList<String> opciones) {
         layout.removeAllViews();
         int i = 0;
 
-        for (String opcion :
-                opciones) {
+        for (String opcion : opciones) {
             Button button = new Button(this);
             button.setText(opcion);
 

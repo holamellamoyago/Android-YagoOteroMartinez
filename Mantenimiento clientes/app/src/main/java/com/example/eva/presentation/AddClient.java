@@ -1,6 +1,7 @@
 package com.example.eva.presentation;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eva.R;
+import com.example.eva.data.Appstrings;
 import com.example.eva.data.AsistenteDB;
 import com.example.eva.data.Cliente;
 
@@ -23,6 +25,10 @@ public class AddClient extends AppCompatActivity {
     Button btnAddClient;
     TextView txtError;
     int id;
+
+    Cliente c;
+    Bundle extras;
+    boolean isUpdating = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +46,9 @@ public class AddClient extends AppCompatActivity {
         btnAddClient = findViewById(R.id.btnAddClient);
         txtError = findViewById(R.id.txtError);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null){
-            Cliente c = (Cliente) extras.getSerializable("cliente");
-            etName.setText(c.getNombre());
-            etSurname.setText(c.getApellidos());
-            id = c.getId();
+        extras = getIntent().getExtras();
+        if (extras != null) {
+            getCliente();
         }
 
         btnAddClient.setOnClickListener(v -> addClient());
@@ -62,23 +65,42 @@ public class AddClient extends AppCompatActivity {
         }
 
         AsistenteDB asistente = new AsistenteDB(this);
-        SQLiteDatabase db =  asistente.getWritableDatabase();
+        SQLiteDatabase db = asistente.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put("nombre", etName.getText().toString());
         values.put("apellidos", etSurname.getText().toString());
 
-        db.insert("clientes", null, values);
+        if (!isUpdating) {
+            db.insert("clientes", null, values);
+        } else {
+            db.update("clientes", values, "id = " , c.getId() );
+        }
+
 
         db.close();
 
         Toast.makeText(this, "Añadido", Toast.LENGTH_LONG).show();
         restablecerEditText();
 
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+
         return true;
     }
 
-    private void restablecerEditText(){
+    private void getCliente() {
+        c = (Cliente) extras.getSerializable("cliente");
+        etName.setText(c.getNombre());
+        etSurname.setText(c.getApellidos());
+        id = c.getId();
+
+        btnAddClient.setText("Actualizar cliente");
+        isUpdating = true;
+    }
+
+    private void restablecerEditText() {
         etName.setText("");
         etSurname.setText("");
     }

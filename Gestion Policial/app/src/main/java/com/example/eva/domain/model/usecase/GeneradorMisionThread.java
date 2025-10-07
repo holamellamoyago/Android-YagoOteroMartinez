@@ -1,6 +1,11 @@
 package com.example.eva.domain.model.usecase;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.eva.domain.model.Mision;
+import com.example.eva.ui.viewmodel.MainActivityViewModel;
 
 import java.util.Random;
 
@@ -9,6 +14,7 @@ public class GeneradorMisionThread extends Thread {
 
     Random rdm = new Random();
     boolean apagado = false;
+    int contador = 0;
 
     @Override
     public void run() {
@@ -23,6 +29,9 @@ public class GeneradorMisionThread extends Thread {
         while (!apagado) {
             try {
                 wait(numRdm);
+                mision = new Mision("Accidente nº" + contador);
+                contador++;
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

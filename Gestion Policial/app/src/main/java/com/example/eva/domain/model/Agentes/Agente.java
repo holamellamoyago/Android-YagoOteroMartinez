@@ -18,4 +18,6 @@ public abstract class Agente extends Persona {
         this.anhosExperiencia = 0;
         this.equipo = null;
     }
+
+
 }

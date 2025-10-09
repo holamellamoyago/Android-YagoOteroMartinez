@@ -64,13 +64,14 @@ public class MainActivity extends AppCompatActivity {
     private void recorrerClientes() {
         Cursor cursor = db.rawQuery("SELECT * FROM clientes", null);
 
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String nombre = cursor.getString(1);
-            String apellidos = cursor.getString(2);
+        if (cursor.moveToFirst()){
+            do {
+                int id = cursor.getInt(0);
+                String nombre = cursor.getString(1);
+                String apellidos = cursor.getString(2);
 
-            clientes.add(new Cliente(id, nombre, apellidos));
-
+                clientes.add(new Cliente(id, nombre, apellidos));
+            } while (cursor.moveToNext());
         }
     }
 

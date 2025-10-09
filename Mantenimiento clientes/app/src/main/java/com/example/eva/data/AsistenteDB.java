@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class  AsistenteDB extends SQLiteOpenHelper {
-    static final int version = 3;
+    static final int version = 4;
     static final String NAME_DB = "CLIENTES_DB";
     //private final SQLiteDatabase db = new AsistenteDB(this);
 

@@ -74,7 +74,7 @@ public class AddClient extends AppCompatActivity {
         if (!isUpdating) {
             db.insert("clientes", null, values);
         } else {
-            db.update("clientes", values, "id = " , c.getId() );
+            db.update("clientes", values, "cod = ?" , new String[]{String.valueOf(c.getId())} );
         }
 
 

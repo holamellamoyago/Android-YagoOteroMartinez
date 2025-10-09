@@ -1,23 +1,14 @@
 package com.example.eva.data;
 
-import java.io.Serializable;
-
-public class Cliente implements Serializable {
+public class MiniCliente {
     private int cod;
     private String nombre;
     private String apellidos;
-    private int vip;
 
-    public Cliente(int cod, String nombre, String apellidos, int vip) {
+    public MiniCliente(int cod, String nombre, String apellidos) {
         this.cod = cod;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.vip = vip;
-    }
-
-    @Override
-    public String toString() {
-        return "Cliente " + nombre + " " + apellidos;
     }
 
     public int getCod() {
@@ -42,13 +33,5 @@ public class Cliente implements Serializable {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
-    }
-
-    public int getVip() {
-        return vip;
-    }
-
-    public void setVip(int vip) {
-        this.vip = vip;
     }
 }

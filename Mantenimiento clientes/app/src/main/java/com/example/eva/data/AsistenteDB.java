@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class  AsistenteDB extends SQLiteOpenHelper {
-    static final int version = 4;
+    static final int version = 8;
     static final String NAME_DB = "CLIENTES_DB";
     //private final SQLiteDatabase db = new AsistenteDB(this);
 
@@ -19,7 +19,7 @@ public class  AsistenteDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE clientes (cod INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(30), apellidos VARCHAR(50))";
+        String sql = "CREATE TABLE clientes (cod INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(30), apellidos VARCHAR(50), vip INTEGER)";
         db.execSQL(sql);
     }
 

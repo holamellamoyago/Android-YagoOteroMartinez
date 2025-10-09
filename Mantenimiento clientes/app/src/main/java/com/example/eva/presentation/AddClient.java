@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +17,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eva.R;
-import com.example.eva.data.Appstrings;
 import com.example.eva.data.AsistenteDB;
 import com.example.eva.data.Cliente;
 
@@ -24,11 +24,14 @@ public class AddClient extends AppCompatActivity {
     EditText etName, etSurname;
     Button btnAddClient;
     TextView txtError;
-    int id;
+    int cod;
+    CheckBox chVip;
 
     Cliente c;
     Bundle extras;
     boolean isUpdating = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +44,7 @@ public class AddClient extends AppCompatActivity {
             return insets;
         });
 
-        etName = findViewById(R.id.etName);
-        etSurname = findViewById(R.id.etSurname);
-        btnAddClient = findViewById(R.id.btnAddClient);
-        txtError = findViewById(R.id.txtError);
+        iniciarWidgets();
 
         extras = getIntent().getExtras();
         if (extras != null) {
@@ -70,11 +70,12 @@ public class AddClient extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put("nombre", etName.getText().toString());
         values.put("apellidos", etSurname.getText().toString());
+        values.put("vip", chVip.isChecked() ? 1 : 0);
 
         if (!isUpdating) {
             db.insert("clientes", null, values);
         } else {
-            db.update("clientes", values, "cod = ?" , new String[]{String.valueOf(c.getId())} );
+            db.update("clientes", values, "cod = ?" , new String[]{String.valueOf(c.getCod())} );
         }
 
 
@@ -92,9 +93,10 @@ public class AddClient extends AppCompatActivity {
 
     private void getCliente() {
         c = (Cliente) extras.getSerializable("cliente");
+        cod = c.getCod();
         etName.setText(c.getNombre());
         etSurname.setText(c.getApellidos());
-        id = c.getId();
+        chVip.setChecked(c.getVip() == 1 ? true : false);
 
         btnAddClient.setText("Actualizar cliente");
         isUpdating = true;
@@ -103,5 +105,14 @@ public class AddClient extends AppCompatActivity {
     private void restablecerEditText() {
         etName.setText("");
         etSurname.setText("");
+        chVip.setChecked(false);
+    }
+
+    private void iniciarWidgets(){
+        etName = findViewById(R.id.etName);
+        etSurname = findViewById(R.id.etSurname);
+        btnAddClient = findViewById(R.id.btnAddClient);
+        txtError = findViewById(R.id.txtError);
+        chVip = findViewById(R.id.chVip);
     }
 }

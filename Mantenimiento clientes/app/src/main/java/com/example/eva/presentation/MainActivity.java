@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.eva.R;
 import com.example.eva.data.AsistenteDB;
 import com.example.eva.data.Cliente;
+import com.example.eva.data.MiniCliente;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -66,11 +67,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (cursor.moveToFirst()){
             do {
-                int id = cursor.getInt(0);
-                String nombre = cursor.getString(1);
-                String apellidos = cursor.getString(2);
 
-                clientes.add(new Cliente(id, nombre, apellidos));
+                int colIndexCod = cursor.getColumnIndex("cod");
+                int colIndexNombre = cursor.getColumnIndex("nombre");
+                int colIndexApellidos = cursor.getColumnIndex("apellidos");
+                int colIndexVip = cursor.getColumnIndex("vip");
+
+                int cod = cursor.getInt(colIndexCod);
+                String nombre = cursor.getString(colIndexNombre);
+                String apellidos = cursor.getString(colIndexApellidos);
+                int vip = cursor.getInt(colIndexVip);
+
+                clientes.add(new Cliente(cod, nombre, apellidos, vip));
             } while (cursor.moveToNext());
         }
     }

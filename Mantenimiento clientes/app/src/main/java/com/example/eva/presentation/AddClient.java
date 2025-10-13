@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class AddClient extends AppCompatActivity {
     TextView txtError;
     int cod;
     CheckBox chVip;
+    Spinner spiProvincias;
 
     Cliente c;
     Bundle extras;
@@ -114,5 +116,6 @@ public class AddClient extends AppCompatActivity {
         btnAddClient = findViewById(R.id.btnAddClient);
         txtError = findViewById(R.id.txtError);
         chVip = findViewById(R.id.chVip);
+        spiProvincias = findViewById(R.id.spiProvincias);
     }
 }

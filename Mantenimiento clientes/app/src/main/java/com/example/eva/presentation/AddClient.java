@@ -4,10 +4,12 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.eva.R;
 import com.example.eva.data.AsistenteDB;
 import com.example.eva.data.Cliente;
+import com.example.eva.data.Provincia;
 
 public class AddClient extends AppCompatActivity {
     EditText etName, etSurname;
@@ -52,6 +55,10 @@ public class AddClient extends AppCompatActivity {
         if (extras != null) {
             getCliente();
         }
+
+        AsistenteDB asistenteDB = new AsistenteDB(this);
+        ArrayAdapter<Provincia> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, asistenteDB.getProvincias());
+        spiProvincias.setAdapter(arrayAdapter);
 
         btnAddClient.setOnClickListener(v -> addClient());
     }

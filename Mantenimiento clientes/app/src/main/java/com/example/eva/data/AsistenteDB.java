@@ -2,15 +2,21 @@ package com.example.eva.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class  AsistenteDB extends SQLiteOpenHelper {
-    static final int version = 9;
+    static final int version = 10;
     static final String NAME_DB = "CLIENTES_DB";
+    ContentValues cv = new ContentValues();
+
     //private final SQLiteDatabase db = new AsistenteDB(this);
 
 
@@ -24,7 +30,21 @@ public class  AsistenteDB extends SQLiteOpenHelper {
         String provincias_sql =
                 "CREATE TABLE provincias (cod_provincias INTEGER PRIMARY KEY AUTOINCREMENT,nombre TEXT)";
 
-        ContentValues cv = new ContentValues();
+        db.execSQL(clientes_sql);
+        db.execSQL(provincias_sql);
+
+        agregarProvincias(db);
+    }
+
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS clientes");
+        db.execSQL("DROP TABLE IF EXISTS provincias");
+        onCreate(db);
+    }
+
+    private void agregarProvincias(SQLiteDatabase db){
         cv.put("nombre", "A Coruña");
         db.insert("provincias", null, cv);
 
@@ -36,15 +56,26 @@ public class  AsistenteDB extends SQLiteOpenHelper {
 
         cv.put("nombre", "Pontevedra");
         db.insert("provincias", null, cv);
-
-        db.execSQL(clientes_sql);
-        db.execSQL(provincias_sql);
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS clientes");
-        db.execSQL("DROP TABLE IF EXISTS provincias");
-        onCreate(db);
+    public ArrayList<Provincia> getProvincias (){
+        Cursor c = getDB().rawQuery("SELECT * FROM provincias", null);
+        ArrayList<Provincia> provincias  = new ArrayList<>(List.of(new Provincia(-1, "")));
+
+        if (c.moveToFirst()){
+            do {
+                Integer cod = Integer.valueOf(c.getString(0));
+                String nombre = c.getString(1);
+
+                provincias.add(new Provincia(cod,nombre));
+            } while (c.moveToNext());
+        }
+
+        return provincias;
+
+    }
+
+    public SQLiteDatabase getDB(){
+        return this.getWritableDatabase();
     }
 }

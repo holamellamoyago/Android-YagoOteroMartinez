@@ -20,7 +20,7 @@ public class AppDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String usuarios_sql = "CREATE TABLE users (cod_user INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        final String usuarios_sql = "CREATE TABLE votantes (cod_user INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                         "name TEXT, email TEXT UNIQUE, password TEXT, terminoVotacion INTEGER)";
 
         final String partidos_sql = "CREATE TABLE partidos (cod_partido PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE)";
@@ -38,7 +38,7 @@ public class AppDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS users");
+        db.execSQL("DROP TABLE IF EXISTS votantes");
         db.execSQL("DROP TABLE IF EXISTS partidos");
         db.execSQL("DROP TABLE IF EXISTS candidatos");
         onCreate(db);

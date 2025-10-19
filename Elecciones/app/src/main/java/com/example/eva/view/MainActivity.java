@@ -1,6 +1,7 @@
 package com.example.eva.view;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -9,14 +10,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+
 import com.example.eva.R;
-import com.example.eva.controller.DatabaseController;
 import com.example.eva.model.Votante;
+import com.example.eva.controller.*;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText etNIF;
     private EditText etPassword;
+    private Button btnLogIn;
+    DatabaseController controller = new DatabaseController(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +36,25 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarWidgets();
 
-        DatabaseController dbController = new DatabaseController(this);
-        dbController.openDatabase();
-
+        btnLogIn.setOnClickListener(v -> loginIN());
 
     }
 
     private void loginIN(){
+
         if (etNIF.getText().toString().equals("") || etPassword.getText().toString().equals("")){
             System.out.println("No puede añadirse un usuario vacio");
             return;
         }
 
-        //Votante v = new Votante()
+        controller.addVotante(etNIF.getText().toString(), etPassword.getText().toString());
+
     }
 
     private void iniciarWidgets(){
         etNIF = findViewById(R.id.etNIF);
         etPassword = findViewById(R.id.etPassword);
+        btnLogIn = findViewById(R.id.btnLogIn);
     }
 
 

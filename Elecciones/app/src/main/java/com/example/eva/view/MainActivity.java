@@ -19,7 +19,7 @@ import com.example.eva.controller.*;
 public class MainActivity extends AppCompatActivity {
 
     private EditText etNIF;
-    private EditText etPassword;
+    public static EditText etPassword;
     private Button btnLogIn;
     DatabaseController controller = new DatabaseController(this);
 

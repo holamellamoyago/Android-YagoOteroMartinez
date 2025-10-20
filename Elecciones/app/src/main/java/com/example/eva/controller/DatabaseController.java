@@ -9,8 +9,12 @@ import android.widget.Toast;
 
 import com.example.eva.config.DatabaseConstants;
 import com.example.eva.model.AppDB;
+import com.example.eva.model.Candidato;
 import com.example.eva.model.Votante;
 import com.example.eva.view.MainActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseController {
     private SQLiteDatabase db;
@@ -70,6 +74,33 @@ public class DatabaseController {
 //
 //    }
 
+    public List<Candidato> getCandidatos() {
+        List<Candidato> candidatos = new ArrayList<>();
+
+        openDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT cod_candidato, name, total_votos FROM candidatos", null);
+
+        if (cursor.moveToFirst()){
+            do {
+                int codigo = cursor.getInt(0);
+                String name = cursor.getString(1);
+                int total_votos = cursor.getInt(2);
+
+                candidatos.add(new Candidato(codigo, name, total_votos));
+            } while (cursor.moveToNext());
+        }
+
+        closeDatabase();
+        return candidatos;
+    };
+
+    public void guardarVotacionCandidatos(Candidato c ) {
+
+    }
+
+
+
     private boolean comprobarExistencia(String nif) {
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM votantes WHERE NIF = ?", new String[]{nif});
 
@@ -80,9 +111,7 @@ public class DatabaseController {
         }
 
         return false;
-    }
-
-    ;
+    };
 
     private void openDatabase() {
         AppDB appDB = new AppDB(context);
@@ -94,4 +123,7 @@ public class DatabaseController {
             db.close();
         }
     }
+
+
+
 }

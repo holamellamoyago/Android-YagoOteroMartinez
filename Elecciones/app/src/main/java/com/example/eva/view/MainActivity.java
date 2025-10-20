@@ -1,5 +1,6 @@
 package com.example.eva.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,18 +37,24 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarWidgets();
 
-        btnLogIn.setOnClickListener(v -> loginIN());
+        btnLogIn.setOnClickListener(v -> {
+            Intent votarActivity = new Intent(this, VotarActivity.class);
+
+            if (loginIN()) {
+                startActivity(votarActivity);
+            }
+        });
 
     }
 
-    private void loginIN(){
+    private boolean loginIN(){
 
         if (etNIF.getText().toString().equals("") || etPassword.getText().toString().equals("")){
             System.out.println("No puede añadirse un usuario vacio");
-            return;
+            return false;
         }
 
-        controller.addVotante(etNIF.getText().toString(), etPassword.getText().toString());
+        return controller.addVotante(etNIF.getText().toString(), etPassword.getText().toString());
 
     }
 

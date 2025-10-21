@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.example.eva.config.DatabaseConstants;
 import com.example.eva.model.AppDB;
 import com.example.eva.model.Candidato;
-import com.example.eva.model.Votante;
 import com.example.eva.view.MainActivity;
 
 import java.util.ArrayList;
@@ -21,25 +20,35 @@ public class DatabaseController {
     private Context context;
     private ContentValues cv = new ContentValues();
 
+    private boolean puedeVotar = true;
+
     public DatabaseController(Context context) {
         this.context = context;
     }
 
-    public boolean addVotante(String nif, String password) {
+    public void registrarVotos(){
+
+    }
+
+    public boolean checkVotante(String nif, String password) {
 
         openDatabase();
 
         cv.put(DatabaseConstants.votante_NIF, nif);
         cv.put(DatabaseConstants.votante_password, password);
 
+        // "Compruebo si el usuario existe en la bd ... "
         if (comprobarExistencia(nif)) {
-            System.out.println("Comprobanndo existencia ... ");
-            if (comprobarContrasenha(nif, password)) {
-                System.out.println("Misma contrasela ... ");
+
+            // Compruebo si la contraseña no es la que debería sino retorna false
+            if (!comprobarContrasenha(nif, password)) {
+                Toast.makeText(context, "usuario y/o contraseña erroneo", Toast.LENGTH_LONG).show();
                 MainActivity.etPassword.setBackgroundColor(Color.parseColor("red"));
+                return false;
             }
 
-            return false;
+            // Ahora que esta logueado compruebo si puede votar
+            return puedeVotar;
         }
 
         db.insertOrThrow("votantes", null, cv);
@@ -62,26 +71,14 @@ public class DatabaseController {
         return false;
     }
 
-
-//    private int cogerSiguienteIDVotante() {
-//        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM votantes", null);
-//
-//        if (cursor.moveToFirst()) {
-//            return (cursor.getInt(0)) + 1;
-//        } else {
-//            throw new ArithmeticException("Error al coger el siguiente ID para guardar al usuario");
-//        }
-//
-//    }
-
-    public List<Candidato> getCandidatos() {
-        List<Candidato> candidatos = new ArrayList<>();
+    public ArrayList<Candidato> getCandidatos() {
+        ArrayList<Candidato> candidatos = new ArrayList<>();
 
         openDatabase();
 
         Cursor cursor = db.rawQuery("SELECT cod_candidato, name, total_votos FROM candidatos", null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 int codigo = cursor.getInt(0);
                 String name = cursor.getString(1);
@@ -93,25 +90,26 @@ public class DatabaseController {
 
         closeDatabase();
         return candidatos;
-    };
-
-    public void guardarVotacionCandidatos(Candidato c ) {
-
     }
 
 
-
     private boolean comprobarExistencia(String nif) {
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM votantes WHERE NIF = ?", new String[]{nif});
+        Cursor cursor = db.rawQuery("SELECT terminoVotacion FROM votantes WHERE NIF = ?", new String[]{nif});
 
+        //De primeras si existe
         if (cursor.moveToFirst()) {
-            if (cursor.getInt(0) != 0) {
-                return true;
+            // Si es 0 es que puede seguir votando porque no termino
+            if (cursor.getInt(0) > 0) {
+                puedeVotar = false;
             }
+
+            // Pero retornamos que true porque si existe
+            return true;
         }
 
         return false;
-    };
+    }
+
 
     private void openDatabase() {
         AppDB appDB = new AppDB(context);
@@ -123,7 +121,6 @@ public class DatabaseController {
             db.close();
         }
     }
-
 
 
 }

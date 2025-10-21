@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 
 import com.example.eva.R;
-import com.example.eva.model.Votante;
 import com.example.eva.controller.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        return controller.addVotante(etNIF.getText().toString(), etPassword.getText().toString());
+        return controller.checkVotante(etNIF.getText().toString(), etPassword.getText().toString());
 
     }
 

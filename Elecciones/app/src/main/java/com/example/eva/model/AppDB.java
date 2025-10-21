@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class AppDB extends SQLiteOpenHelper {
-    static final int VERSION_DB = 14;
+    static final int VERSION_DB = 15;
     static final String  NOMBRE_DB = "elecciones";
 
     ContentValues cv = new ContentValues();
@@ -23,7 +23,7 @@ public class AppDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String votantes_sql = "CREATE TABLE votantes (NIF TEXT PRIMARY KEY, password TEXT, terminoVotacion INTEGER)";
+        final String votantes_sql = "CREATE TABLE votantes (NIF TEXT PRIMARY KEY, password TEXT, terminoVotacion INTEGER DEFAULT 0)";
 
         final String partidos_sql = "CREATE TABLE partidos (cod_partido INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE)";
 

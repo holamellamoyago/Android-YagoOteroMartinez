@@ -13,6 +13,12 @@
         android:theme="@style/Theme.EVA"
         tools:targetApi="31">
         <activity
+            android:name=".view.ResultadoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.VotacionActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.VotarActivity"
             android:exported="false" />
         <activity

@@ -34,7 +34,7 @@ public class VotarActivity extends AppCompatActivity {
         initWidgets();
         poblarLista();
 
-        lvCandidatos.setOnItemClickListener((adapterView, view, i, l) -> );
+        //lvCandidatos.setOnItemClickListener((adapterView, view, i, l) ->  );
     }
 
     private void initWidgets(){

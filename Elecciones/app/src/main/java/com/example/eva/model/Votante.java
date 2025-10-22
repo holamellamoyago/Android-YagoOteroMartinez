@@ -1,7 +1,9 @@
 package com.example.eva.model;
 
 
-public class Votante {
+import java.io.Serializable;
+
+public class Votante implements Serializable {
     private Integer votanteID;
     private String NIF;
     private boolean puedeVotar;

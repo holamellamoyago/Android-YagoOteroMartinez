@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-
 import com.example.eva.R;
 import com.example.eva.controller.*;
 
@@ -37,18 +36,29 @@ public class MainActivity extends AppCompatActivity {
         iniciarWidgets();
 
         btnLogIn.setOnClickListener(v -> {
-            Intent votarActivity = new Intent(this, VotarActivity.class);
+            Intent intent;
 
             if (loginIN()) {
-                startActivity(votarActivity);
+                System.out.println("Inicio sesión");
+                if (controller.puedeVotar(etNIF.getText().toString())) {
+                    intent = new Intent(this, VotarActivity.class);
+
+                    intent.putExtra("nifVotante", etNIF.getText().toString());
+                    startActivity(intent);
+                } else {
+                    System.out.println("mover ... ");
+                    intent = new Intent(this, ResultadoActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
     }
 
-    private boolean loginIN(){
+    private boolean loginIN() {
 
-        if (etNIF.getText().toString().equals("") || etPassword.getText().toString().equals("")){
+        if (etNIF.getText().toString().equals("") || etPassword.getText().toString().equals("")) {
             System.out.println("No puede añadirse un usuario vacio");
             return false;
         }
@@ -57,12 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void iniciarWidgets(){
+    private void iniciarWidgets() {
         etNIF = findViewById(R.id.etNIF);
         etPassword = findViewById(R.id.etPassword);
         btnLogIn = findViewById(R.id.btnLogIn);
     }
-
 
 
 }

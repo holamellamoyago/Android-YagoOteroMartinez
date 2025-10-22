@@ -13,6 +13,7 @@ import com.example.eva.model.Candidato;
 import com.example.eva.view.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class DatabaseController {
@@ -26,8 +27,82 @@ public class DatabaseController {
         this.context = context;
     }
 
-    public void registrarVotos(){
+    public ArrayList<String> cargarGanadores(){
+        ArrayList<String> candidatos = new ArrayList<>();
+        openDatabase();
 
+        Cursor getMaxVotos = db.rawQuery("SELECT MAX(total_votos) FROM " +
+                DatabaseConstants.tableCandidatos, null);
+
+        getMaxVotos.moveToFirst();
+        int maximo = getMaxVotos.getInt(0);
+
+        Cursor getMaxCandidatos = db.rawQuery(
+                "SELECT name FROM " +
+                    DatabaseConstants.tableCandidatos +
+                    " WHERE total_votos = ?", new String[]{String.valueOf(maximo)});
+
+        if (getMaxCandidatos.moveToFirst()){
+            do {
+                candidatos.add(getMaxCandidatos.getString(0));
+
+            } while (getMaxCandidatos.moveToNext());
+        }
+
+
+
+        getMaxVotos.close();
+        getMaxCandidatos.close();
+        closeDatabase();
+        return candidatos;
+    }
+
+    public boolean puedeVotar(String nifVotante){
+        boolean puedeVotar = false;
+        openDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT terminoVotacion FROM " +
+                DatabaseConstants.tableVotantes + " WHERE NIF = ?", new String[]{nifVotante});
+
+        if (cursor.moveToFirst()){
+            if (cursor.getInt(0) == 0){
+                puedeVotar = true;
+            }
+        }
+
+
+        closeDatabase();
+
+        return puedeVotar;
+    }
+
+    public void terminarVotosVotante(String nifVotante){
+        openDatabase();
+        cv.clear();
+        cv.put("terminoVotacion", 1);
+
+        db.update(DatabaseConstants.tableVotantes, cv, "NIF = ? ", new String[]{nifVotante});
+
+
+        closeDatabase();
+    }
+
+    public void registrarVotos(String cod_candidato) {
+        openDatabase();
+        cv.clear();
+
+        cv.put("total_votos", getTotalVotosCandidato(cod_candidato) + 1);
+        System.out.println(getTotalVotosCandidato(cod_candidato) +1 );
+        db.update(DatabaseConstants.tableCandidatos, cv, "cod_candidato = ?", new String[]{cod_candidato});
+
+        closeDatabase();
+    }
+
+    private float getTotalVotosCandidato(String cod_candidato) {
+        Cursor cursor = db.rawQuery("SELECT total_votos FROM " + DatabaseConstants.tableCandidatos + " WHERE cod_candidato = ? ", new String[]{cod_candidato});
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
     }
 
     public boolean checkVotante(String nif, String password) {
@@ -98,10 +173,6 @@ public class DatabaseController {
 
         //De primeras si existe
         if (cursor.moveToFirst()) {
-            // Si es 0 es que puede seguir votando porque no termino
-            if (cursor.getInt(0) > 0) {
-                puedeVotar = false;
-            }
 
             // Pero retornamos que true porque si existe
             return true;

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class AppDB extends SQLiteOpenHelper {
-    static final int VERSION_DB = 15;
+    static final int VERSION_DB = 16;
     static final String  NOMBRE_DB = "elecciones";
 
     ContentValues cv = new ContentValues();
@@ -60,6 +60,15 @@ public class AppDB extends SQLiteOpenHelper {
         db.insert("candidatos", null, cv);
 
         cv.put("name", "Maria Rajoy"); cv.put("cod_partido", "1");
+        db.insert("candidatos", null, cv);
+
+        cv.put("name", "Aznar"); cv.put("cod_partido", "1");
+        db.insert("candidatos", null, cv);
+
+        cv.put("name", "zapatero"); cv.put("cod_partido", "1");
+        db.insert("candidatos", null, cv);
+
+        cv.put("name", "Yago"); cv.put("cod_partido", "1");
         db.insert("candidatos", null, cv);
 
 

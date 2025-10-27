@@ -3,6 +3,8 @@ package com.example.eva.view;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -45,6 +47,12 @@ public class VotarActivity extends AppCompatActivity {
 
 
         lvCandidatos.setOnItemClickListener((adapterView, view, i, l) -> registrarVotos(i));
+        lvCandidatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
 
     }
 

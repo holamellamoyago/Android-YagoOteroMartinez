@@ -16,6 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eva.R;
+import com.example.eva.adapter.AdapterCandidato;
+import com.example.eva.config.DatabaseConstants;
 import com.example.eva.controller.*;
 import com.example.eva.model.Candidato;
 import com.example.eva.model.Votante;
@@ -24,13 +26,15 @@ import java.util.ArrayList;
 
 public class VotarActivity extends AppCompatActivity {
 
-    DatabaseController dbC;
-    ListView lvCandidatos;
-    String nifVotante = "Error";
+    private final int NUM_MAX_VOTOS = 3;
+    private DatabaseController dbC;
+    private ListView lvCandidatos;
+    private String nifVotante = "Error";
 
 
-    ArrayAdapter<Candidato> candidatoAdapter;
     ArrayList<Candidato> candidatosVotados = new ArrayList<>();
+
+    AdapterCandidato newCandidatoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +51,20 @@ public class VotarActivity extends AppCompatActivity {
 
 
         lvCandidatos.setOnItemClickListener((adapterView, view, i, l) -> registrarVotos(i));
-        lvCandidatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            }
-        });
 
     }
 
     private void registrarVotos(int i) {
-        Candidato candidato = candidatoAdapter.getItem(i);
+        Candidato candidato = newCandidatoAdapter.getItem(i);
         dbC.registrarVotos(String.valueOf(candidato.getCandidatoID()));
 
 
         candidatosVotados.add(candidato);
         Toast.makeText(this, "Se registro el voto a: " + candidato, Toast.LENGTH_SHORT).show();
-        candidatoAdapter.remove(candidato);
+        newCandidatoAdapter.remove(candidato);
 
-        if (candidatosVotados.size() == 3) {
+        if (candidatosVotados.size() == NUM_MAX_VOTOS) {
             dbC.terminarVotosVotante(nifVotante);
 
             Intent resultadoActivity = new Intent(this, ResultadoActivity.class);
@@ -84,7 +83,6 @@ public class VotarActivity extends AppCompatActivity {
 
             nifVotante = extras.getString("nifVotante");
 
-
             Toast.makeText(this, nifVotante, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             throw new ArithmeticException("Problemas al cargar el votante a votar");
@@ -93,7 +91,9 @@ public class VotarActivity extends AppCompatActivity {
 
 
     private void poblarLista() {
-        candidatoAdapter = new ArrayAdapter<Candidato>(this, android.R.layout.simple_list_item_1, dbC.getCandidatos());
-        lvCandidatos.setAdapter(candidatoAdapter);
+//        candidatoAdapter = new ArrayAdapter<Candidato>(this, android.R.layout.simple_list_item_1, dbC.getCandidatos());
+        DatabaseConstants constants = new DatabaseConstants(this);
+        newCandidatoAdapter = new AdapterCandidato(this, DatabaseConstants.candidatos);
+        lvCandidatos.setAdapter(newCandidatoAdapter);
     }
 }

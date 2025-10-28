@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.eva.config.DatabaseConstants;
 import com.example.eva.model.AppDB;
 import com.example.eva.model.Candidato;
+import com.example.eva.model.Partido;
 import com.example.eva.view.MainActivity;
 
 import java.util.ArrayList;
@@ -146,25 +147,55 @@ public class DatabaseController {
         return false;
     }
 
+
+    // TODO Hacer esta función genérica
+
     public ArrayList<Candidato> getCandidatos() {
         ArrayList<Candidato> candidatos = new ArrayList<>();
 
         openDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT cod_candidato, name, total_votos FROM candidatos", null);
+        Cursor cursor = db.rawQuery("SELECT cod_candidato, name, total_votos, cod_partido FROM candidatos", null);
 
         if (cursor.moveToFirst()) {
             do {
                 int codigo = cursor.getInt(0);
                 String name = cursor.getString(1);
                 int total_votos = cursor.getInt(2);
+                int partido_cod = cursor.getInt(3);
 
-                candidatos.add(new Candidato(codigo, name, total_votos));
+                candidatos.add(new Candidato(codigo, name, total_votos, partido_cod));
             } while (cursor.moveToNext());
         }
 
         closeDatabase();
         return candidatos;
+    }
+
+
+    public ArrayList<Partido> getPartidos(){
+        ArrayList<Partido> partidos = new ArrayList<>();
+
+        openDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT cod_partido, name, color FROM partidos", null);
+
+        if (cursor.moveToFirst()){
+
+            do {
+                int codPartido = cursor.getInt(0);
+                String nombrePartido = cursor.getString(1);
+                int color = cursor.getInt(2);
+
+                Partido partido = new Partido(codPartido,nombrePartido,color);
+                partidos.add(partido);
+
+            } while (cursor.moveToNext());
+        }
+
+
+        closeDatabase();
+        return partidos;
     }
 
 

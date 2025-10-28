@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
 
         if (usuario.equals("")  || password.equals("")){
-            btnEntrar.deshacerClick();
             Toast.makeText(this, "No cuenta", Toast.LENGTH_SHORT).show();
             return false;
 

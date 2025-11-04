@@ -1,11 +1,7 @@
 package com.example.eva;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +10,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
+
+import com.example.eva.fragmentos.FrgBotonLimitado;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
         btnEntrar = (FrgBotonLimitado) fm.findFragmentById(R.id.btnEntrar);
 
         btnEntrar.setMaxClicks(MAX_INTENTOS);
-        btnEntrar.setOnFrgBotonLimitadoListener(new FrgBotonLimitado.OnFrgBLClickListener() {
-            @Override
-            public boolean onClick() {
-                return entrar();
-            }
-        });
+//        btnEntrar.setOnFrgBotonLimitadoListener(new FrgBotonLimitado.OnFrgBLClickListener() {
+//            @Override
+//            public boolean onClick() {
+//                return entrar();
+//            }
+//        });
     }
 
     private boolean entrar() {

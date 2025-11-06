@@ -34,10 +34,10 @@ public class FrgTelefono extends Fragment {
     EditText edNumTlfn;
     ImageButton imgBtn;
 
-    public FrgTelefono(String numTelefono){
-        this.numTelefono = numTelefono;
-        isCalling = false;
-    }
+        public FrgTelefono(String numTelefono){
+            this.numTelefono = numTelefono;
+            isCalling = false;
+        }
 
     // Porque hace falta uno vacío ? Bundle?
     public FrgTelefono() {

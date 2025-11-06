@@ -25,7 +25,7 @@ public class Telefonos extends AppCompatActivity {
 
     List<FrgTelefono> telefonos = new ArrayList<>();
     LinearLayout ll;
-    final int NUM_CONTACTOS = 4;
+    final int NUM_CONTACTOS = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

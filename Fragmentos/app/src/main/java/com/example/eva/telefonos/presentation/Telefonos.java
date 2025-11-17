@@ -2,7 +2,6 @@ package com.example.eva.telefonos.presentation;
 
 import android.os.Bundle;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -10,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eva.R;
+import com.example.eva.database.Databasecontroller;
 import com.example.eva.telefonos.fragments.FrgTelefono;
 
 import java.util.ArrayList;
@@ -23,9 +22,9 @@ import java.util.List;
 public class Telefonos extends AppCompatActivity {
 
 
-    List<FrgTelefono> telefonos = new ArrayList<>();
+    List<FrgTelefono> frgTelefonos = new ArrayList<>();
+    List<String> telefonos;
     LinearLayout ll;
-    final int NUM_CONTACTOS = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,8 @@ public class Telefonos extends AppCompatActivity {
 
         ll = findViewById(R.id.main);
 
+        telefonos = Databasecontroller.getTelefonos(this.getApplicationContext());
+
         iniciarContactos();
 
     }
@@ -48,9 +49,10 @@ public class Telefonos extends AppCompatActivity {
         FragmentManager frgManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = frgManager.beginTransaction();
 
-        for (int i = 0; i < NUM_CONTACTOS; i++) {
+
+        for (int i = 0; i < telefonos.size(); i++) {
             //telefonoIndividual = (FrgTelefono) frgManager.findFragmentById(R.id.telefonoIndividual);
-            FrgTelefono telefonoIndividual = new FrgTelefono(String.valueOf(i));
+            FrgTelefono telefonoIndividual = new FrgTelefono(telefonos.get(i));
 
             telefonoIndividual.setOnFrgTelefonoListener(new FrgTelefono.onFrgTelefonoListener() {
                 @Override
@@ -79,15 +81,15 @@ public class Telefonos extends AppCompatActivity {
             });
 
             fragmentTransaction.add(R.id.main, telefonoIndividual, "telefono" + i);
-            telefonos.add(telefonoIndividual);
+            frgTelefonos.add(telefonoIndividual);
         }
 
         fragmentTransaction.commit();
     }
 
     private boolean comprobarDisponibilidad(String n1, String n2) {
-        for (int i = 0; i < telefonos.size(); i++) {
-        FrgTelefono tel = telefonos.get(i);
+        for (int i = 0; i < frgTelefonos.size(); i++) {
+        FrgTelefono tel = frgTelefonos.get(i);
             if (tel.getNumTelefono().equals(n1) && tel.isCalling()){
                 Toast.makeText(this, "El tlfn entrante se encuentra en una llamada", Toast.LENGTH_SHORT).show();
                 return false;
@@ -103,12 +105,12 @@ public class Telefonos extends AppCompatActivity {
     }
 
     private void cambiarEstadoTelefono(String numTelefono, String numSaliente) {
-        for (int i = 0; i < telefonos.size(); i++) {
-            if (telefonos.get(i).getNumTelefono().equals(numTelefono)) {
-                if (telefonos.get(i).isCalling()) {
-                    telefonos.get(i).terminarLlmada();
+        for (int i = 0; i < frgTelefonos.size(); i++) {
+            if (frgTelefonos.get(i).getNumTelefono().equals(numTelefono)) {
+                if (frgTelefonos.get(i).isCalling()) {
+                    frgTelefonos.get(i).terminarLlmada();
                 } else {
-                    telefonos.get(i).empezarLlamada(numSaliente);
+                    frgTelefonos.get(i).empezarLlamada(numSaliente);
                 }
                 return;
             }

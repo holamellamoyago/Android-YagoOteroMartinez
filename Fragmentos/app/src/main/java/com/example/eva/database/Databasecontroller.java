@@ -17,10 +17,12 @@ public class Databasecontroller {
 
         Cursor cursor = db.rawQuery(palabras_sql, null);
         if (cursor.moveToFirst()) {
-            String telefono = cursor.getString(0);
-            System.out.println("Telefonos: " + telefono);
+            do {
+                String telefono = cursor.getString(0);
+                System.out.println("Telefonos: " + telefono);
 
-            telefonos.add(telefono.toLowerCase());
+                telefonos.add(telefono.toLowerCase());
+            } while (cursor.moveToNext());
         };
 
         return telefonos;

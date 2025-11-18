@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppDB extends SQLiteOpenHelper {
-    static final int VERSION_DB = 1;
+    static final int VERSION_DB = 3;
     static final String NOMBRE_DB = "telefonos";
 
     ContentValues cv = new ContentValues();
@@ -34,6 +34,7 @@ public class AppDB extends SQLiteOpenHelper {
 
     private void insertarEjemplos(SQLiteDatabase db, ArrayList<String> telefonos) {
         //long referenciaPartido = db.insert("partidos", null, cv);
+        System.out.println("Telefonos: " + telefonos);
 
         for (int i = 0; i < telefonos.size(); i++) {
             cv.clear();
@@ -45,7 +46,7 @@ public class AppDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS palabras");
+        db.execSQL("DROP TABLE IF EXISTS telefonos");
         onCreate(db);
     }
 }

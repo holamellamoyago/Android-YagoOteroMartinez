@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.eva.R;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 public class DadosActivity extends AppCompatActivity {
     final int NUM_DADOS = 2;
+    FrgDados frgDado;
     ArrayList<FrgDados> fragmentsDados = new ArrayList<>();
 
     @Override
@@ -27,18 +29,14 @@ public class DadosActivity extends AppCompatActivity {
             return insets;
         });
 
-        iniciarFragmentos();
+        //iniciarFragmentos();
+        iniciarFragment();
+
     }
 
-    private void iniciarFragmentos() {
-        for (int i = 0; i < NUM_DADOS; i++) {
-            FrgDados fragmentDado = new FrgDados();
-            fragmentDado.setOnFrgDatosListener(new FrgDados.onFrgDatosListener() {
-                @Override
-                public void onTirar(FrgDados dado, int numero, ArrayList<Integer> historial) {
-
-                }
-            });
-        }
+    private void iniciarFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        frgDado = (FrgDados) fm.findFragmentById(R.id.frgDado);
     }
 }
+

@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
         Hilo hilo = new Hilo();
         hilo.start();
+        try {
+            hilo.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         textView.setText("Yago:" +  controller.getContents());
 

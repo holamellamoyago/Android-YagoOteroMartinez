@@ -17,14 +17,15 @@ public class FrgDado extends Fragment {
     private Button button;
     private onFrgDadoListener listener;
 
-    interface onFrgDadoListener{
+    interface onFrgDadoListener {
         void onDadoTirado(FrgDado frgDado, int numero);
+        void onRondaTerminada();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  LayoutInflater.from(getContext()).inflate(R.layout.frg_dado, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.frg_dado, null);
         button = view.findViewById(R.id.button);
         return view;
     }
@@ -32,19 +33,36 @@ public class FrgDado extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         button.setText(R.string.jugar);
-        button.setOnClickListener(v -> listener.onDadoTirado(this, new Random().nextInt(6)));
+        button.setOnClickListener(v -> tirarDado());
+    }
+
+    private void tirarDado() {
+        int n = new Random().nextInt(dado.getNumCaras() +1 );
+        listener.onDadoTirado(this, n);
+
+        MainActivity.anadirNumero(n);
+
+
+
+        if (dado.getId() == 1) listener.onRondaTerminada();
     }
 
     public void setListener(onFrgDadoListener listener) {
         this.listener = listener;
     }
 
-
-    public void setTextoBoton(String texto){
+    public void setTextoBoton(String texto) {
         button.setText(texto);
     }
 
     public void setDado(Dado dado) {
         this.dado = dado;
     }
+
+    public void setVisible(boolean visible) {
+        if (visible) button.setVisibility(View.VISIBLE);
+        if (!visible) button.setVisibility(View.INVISIBLE);
+    }
+
+
 }

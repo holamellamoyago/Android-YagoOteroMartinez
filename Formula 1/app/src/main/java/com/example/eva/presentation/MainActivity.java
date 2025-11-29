@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.eva.R;
 import com.example.eva.data.database.AppDB;
+import com.example.eva.data.openF1.GestorOpenF1;
+import com.example.eva.data.openF1.HiloConector;
 import com.example.eva.domain.model.Piloto;
 import com.example.eva.thread.Carrera;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -57,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         carrera = new Carrera(getApplicationContext());
         carrera.start();
+
+        HiloConector hiloConector = new HiloConector();
+        hiloConector.start();
 
     }
 

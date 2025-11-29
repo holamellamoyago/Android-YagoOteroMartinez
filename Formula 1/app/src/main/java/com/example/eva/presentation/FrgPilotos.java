@@ -1,11 +1,9 @@
 package com.example.eva.presentation;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,9 +17,6 @@ import com.example.eva.domain.model.Piloto;
 import com.example.eva.domain.model.PilotoAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class FrgPilotos extends Fragment {
     private ListView lvPilotos;
@@ -70,8 +65,13 @@ public class FrgPilotos extends Fragment {
     }
 
     private void actualizarVueltas() {
+        if (vuelta == 0) {
+            tvTitleVueltas.setText("La carrera todavía no comenzó");
+        } else {
+            tvTitleVueltas.setText(getString(R.string.title_vuelta, vuelta, MainActivity.NUMERO_VUELTAS));
+        }
+
         vuelta++;
-        tvTitleVueltas.setText(getString(R.string.title_vuelta, vuelta, MainActivity.NUMERO_VUELTAS));
     }
 
 

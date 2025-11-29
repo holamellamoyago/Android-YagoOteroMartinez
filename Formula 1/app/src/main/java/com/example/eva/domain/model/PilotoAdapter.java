@@ -1,5 +1,7 @@
 package com.example.eva.domain.model;
 
+import static androidx.core.content.ContextCompat.getColor;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.eva.R;
-import com.example.eva.presentation.MainActivity;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class PilotoAdapter extends ArrayAdapter<Piloto> {
             } else if (posicionAnterior > posicionActual) {
                 setPosicionSubida();
             } else {
-                // TODO Se mantiene
+                tvEstado.setText("");
             }
         }
 
@@ -68,9 +69,11 @@ public class PilotoAdapter extends ArrayAdapter<Piloto> {
 
     public void setPosicionSubida() {
         tvEstado.setText("Subió una posición");
+        tvEstado.setTextColor(getColor(context, R.color.green));
     }
 
     public void setBajoPosicion() {
         tvEstado.setText("Bajo una posición");
+        tvEstado.setTextColor(getColor(context, R.color.red));
     }
 }

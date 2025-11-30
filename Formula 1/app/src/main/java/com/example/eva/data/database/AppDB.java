@@ -12,7 +12,7 @@ import com.example.eva.domain.model.Piloto;
 import java.util.ArrayList;
 
 public class AppDB extends SQLiteOpenHelper {
-    static final int VERSION_DB = 5;
+    static final int VERSION_DB = 9;
     static final String NOMBRE_DB = "f1";
 
     ContentValues cv = new ContentValues();
@@ -25,32 +25,33 @@ public class AppDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String pilotos_sql = "CREATE TABLE pilotos (numPiloto INTEGER PRIMARY KEY, nombre TEXT UNIQUE NOT NULL, posicion INTEGER UNIQUE NOT NULL, posicionAnterior INTEGER UNIQUE)";
+        final String pilotos_sql = "CREATE TABLE pilotos (driverNumber INTEGER PRIMARY KEY, fullName TEXT UNIQUE NOT NULL, broadcastName TEXT UNIQUE," +
+                " teamName TEXT, imageURL TEXT UNIQUE, posicionActual INTEGER UNIQUE, posicionAnterior INTEGER UNIQUE)";
         db.execSQL(pilotos_sql);
 
-        ArrayList<Piloto> pilotos = new ArrayList<>();
-        pilotos.add(new Piloto("Fernando Alonso", 14, 1));
-        pilotos.add(new Piloto("Carlos Sainz", 55, 2));
-        pilotos.add(new Piloto("SUPER MAAAAX VERSTAPPEN", 1, 3));
+//        ArrayList<Piloto> pilotos = new ArrayList<>();
+//        pilotos.add(new Piloto("Fernando Alonso", 14, 1));
+//        pilotos.add(new Piloto("Carlos Sainz", 55, 2));
+//        pilotos.add(new Piloto("SUPER MAAAAX VERSTAPPEN", 1, 3));
 
-        insertarEjemplos(db, pilotos);
+//        insertarEjemplos(db, pilotos);
     }
 
-    private void insertarEjemplos(SQLiteDatabase db, ArrayList<Piloto> pilotos) {
-        /*
-            Posible mejora: añadir primero los equipos y después
-            añadir cada piloto a cada piloto de esa referencia
-         */
-
-        for (int i = 0; i < pilotos.size(); i++) {
-            cv.clear();
-            Piloto p = pilotos.get(i);
-            cv.put("numPiloto", p.getNumPiloto());
-            cv.put("nombre", p.getNombre());
-            cv.put("posicion", p.getPosicionActual());
-            db.insert("pilotos", null, cv);
-        }
-    }
+//    private void insertarEjemplos(SQLiteDatabase db, ArrayList<Piloto> pilotos) {
+//        /*
+//            Posible mejora: añadir primero los equipos y después
+//            añadir cada piloto a cada piloto de esa referencia
+//         */
+//
+//        for (int i = 0; i < pilotos.size(); i++) {
+//            cv.clear();
+//            Piloto p = pilotos.get(i);
+//            cv.put("numPiloto", p.getDriverNumber());
+//            cv.put("nombre", p.getFullName());
+//            cv.put("posicion", p.getPosicionActual());
+//            db.insert("pilotos", null, cv);
+//        }
+//    }
 
 
     @Override

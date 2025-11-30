@@ -1,10 +1,24 @@
 package com.example.eva.data.openF1;
 
-public class HiloConector extends Thread{
+import android.content.Context;
+
+import com.example.eva.controller.GestorDatabase;
+import com.example.eva.domain.model.Piloto;
+
+import java.util.ArrayList;
+
+public class HiloConector extends Thread {
+    private Context context;
+
+    public HiloConector(Context context) {
+        this.context = context;
+    }
+
     @Override
     public void run() {
-        GestorOpenF1 gestorOpenF1 = new GestorOpenF1();
-//        System.out.println("json " + gestorOpenF1.getUrlContents());
-        gestorOpenF1.getInformacionPiloto(33);
+        final GestorOpenF1 gestorOpenF1 = new GestorOpenF1();
+        final GestorDatabase gestorDatabase = new GestorDatabase(context);
+
+        gestorDatabase.setPilotos(gestorOpenF1.getPilotos());
     }
 }

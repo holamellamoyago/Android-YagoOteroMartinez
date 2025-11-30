@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.eva.R;
-import com.example.eva.controller.ControllerDatabaser;
+import com.example.eva.controller.GestorDatabase;
 import com.example.eva.domain.model.Piloto;
 import com.example.eva.domain.model.PilotoAdapter;
 
@@ -23,7 +23,7 @@ public class FrgPilotos extends Fragment {
     public onPilotosListener listener;
     private PilotoAdapter pilotoAdapter;
 
-    private ControllerDatabaser DB_CONTROLLER;
+    private GestorDatabase DB_CONTROLLER;
     private ArrayList<Piloto> pilotos = new ArrayList<>();
 
     private TextView tvTitleVueltas;
@@ -76,7 +76,7 @@ public class FrgPilotos extends Fragment {
 
 
     public void getPilotos() {
-        if (DB_CONTROLLER == null) DB_CONTROLLER = new ControllerDatabaser(getActivity());
+        if (DB_CONTROLLER == null) DB_CONTROLLER = new GestorDatabase(getActivity());
 
         if (pilotoAdapter == null) {
             DB_CONTROLLER.getPilotos().forEach(piloto -> pilotos.add(piloto));

@@ -1,8 +1,5 @@
 package com.example.eva.presentation;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -13,13 +10,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.eva.R;
-import com.example.eva.data.database.AppDB;
-import com.example.eva.data.openF1.GestorOpenF1;
 import com.example.eva.data.openF1.HiloConector;
-import com.example.eva.domain.model.Piloto;
 import com.example.eva.thread.Carrera;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     public final static int NUMERO_VUELTAS = 10;
@@ -43,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(v -> empezarCarrera());
 
+        try {
+            HiloConector hiloConector = new HiloConector(getApplicationContext());
+            hiloConector.start();
+            hiloConector.join();
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         FragmentManager fm = getSupportFragmentManager();
         frgPilotos = (FrgPilotos) fm.findFragmentById(R.id.frgPilotos);
         frgPilotos.setListener(new FrgPilotos.onPilotosListener() {
@@ -60,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         carrera = new Carrera(getApplicationContext());
         carrera.start();
 
-        HiloConector hiloConector = new HiloConector();
-        hiloConector.start();
 
     }
 

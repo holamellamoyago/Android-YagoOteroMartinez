@@ -1,18 +1,14 @@
 package com.example.eva.controller;
 
 import com.example.eva.GestorMareasXML;
-import com.example.eva.MainActivity;
-import com.example.eva.model.HTTP;
 import com.example.eva.model.Marea;
 
 import org.w3c.dom.Document;
 
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.util.ArrayList;
 
 
-public class Hilo extends Thread {
+public class HiloXML extends Thread {
 
     @Override
     public void run() {

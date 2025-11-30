@@ -9,12 +9,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.eva.controller.ControllerMainActivity;
-import com.example.eva.controller.Hilo;
+import com.example.eva.controller.HiloJSON;
+import com.example.eva.controller.HiloXML;
 
 public class MainActivity extends AppCompatActivity {
+    public static String strURL = "https://servizos.meteogalicia.gal";
 
-    public static ControllerMainActivity controller;
     private TextView textView;
 
     @Override
@@ -28,20 +28,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        controller = new ControllerMainActivity();
         textView = findViewById(R.id.textView);
 
-        Hilo hilo = new Hilo();
-        hilo.start();
-        try {
-            hilo.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        HiloXML hiloXML = new HiloXML();
+        hiloXML.start();
 
-        textView.setText("Yago:" +  controller.getContents());
+
+        HiloJSON hiloJSON = new HiloJSON();
+        hiloJSON.start();
 
 
     }
-
 }
+

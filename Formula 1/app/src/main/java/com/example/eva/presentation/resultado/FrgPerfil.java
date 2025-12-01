@@ -16,23 +16,23 @@ import com.example.eva.R;
 import com.example.eva.data.openF1.GestorOpenF1;
 import com.example.eva.domain.model.Piloto;
 
+import java.sql.SQLOutput;
+
 public class FrgPerfil extends Fragment {
-    private final Context context;
     private GestorOpenF1 gestorOpenF1 = new GestorOpenF1();
     private Piloto piloto;
 
     private TextView txtBroadcastName, txtTeamName, txtNumber, txtFullName;
     private ImageView imvPiloto;
 
-    public FrgPerfil(Context context, int numeroPiloto) {
-        this.context = context;
-        this.piloto = gestorOpenF1.getInformacionPiloto(numeroPiloto);
+    public FrgPerfil(){
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(context).inflate(R.layout.frg_perfil, null, false);
+        return LayoutInflater.from(getContext()).inflate(R.layout.frg_perfil, null, false);
     }
 
     @Override
@@ -41,6 +41,10 @@ public class FrgPerfil extends Fragment {
         txtNumber = view.findViewById(R.id.txtNumber);
         txtTeamName = view.findViewById(R.id.txtTeamName);
         txtFullName = view.findViewById(R.id.txtFullName);
+
+        if (piloto != null) {
+            actualizarDatos();
+        }
 
 
     }
@@ -52,7 +56,7 @@ public class FrgPerfil extends Fragment {
     private void actualizarDatos() {
         txtBroadcastName.setText(piloto.getBroadcastName());
         txtFullName.setText(piloto.getFullName());
-        txtNumber.setText(piloto.getDriverNumber());
+        txtNumber.setText(String.valueOf(piloto.getDriverNumber()));
         txtTeamName.setText(piloto.getEquipo().getTeamName());
     }
 }

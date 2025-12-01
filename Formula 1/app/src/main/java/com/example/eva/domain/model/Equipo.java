@@ -1,6 +1,8 @@
 package com.example.eva.domain.model;
 
-public class Equipo {
+import java.io.Serializable;
+
+public class Equipo implements Serializable {
     private String teamName;
     private String teamColour;
 

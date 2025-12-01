@@ -16,6 +16,7 @@ import com.example.eva.R;
 import com.example.eva.controller.GestorDatabase;
 import com.example.eva.domain.model.Piloto;
 import com.example.eva.domain.model.PilotoAdapter;
+import com.example.eva.presentation.perfil.PerfilActivity;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,7 @@ public class FrgPilotos extends Fragment {
 
         getPilotos();
 
-        lvPilotos.setOnItemClickListener((adapterView, view1, i, l) -> mostrarPerfilPiloto(pilotos.get(i).getDriverNumber()));
+        lvPilotos.setOnItemClickListener((adapterView, view1, i, l) -> mostrarPerfilPiloto(pilotos.get(i)));
 
     }
 
@@ -105,9 +106,11 @@ public class FrgPilotos extends Fragment {
         this.listener = listener;
     }
 
-    private void mostrarPerfilPiloto(int numPiloto) {
-        Intent perfilIntent = new Intent();
+    private void mostrarPerfilPiloto(Piloto piloto) {
+        Intent perfilIntent = new Intent(getContext(), PerfilActivity.class);
+        perfilIntent.putExtra("piloto", piloto);
 
+        startActivity(perfilIntent);
     }
 
 

@@ -1,8 +1,9 @@
 package com.example.eva.domain.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Piloto {
+public class Piloto implements Serializable {
     private String fullName;
     private int driverNumber;
     private String broadcastName;

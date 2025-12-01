@@ -26,7 +26,7 @@ public class GestorOpenF1 {
         StringBuilder str = new StringBuilder();
         try {
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("192.168.0.11", 3128));
-            HttpURLConnection con = (HttpURLConnection) new URL(urlConnection).openConnection(proxy);
+            HttpURLConnection con = (HttpURLConnection) new URL(urlConnection).openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String linea;
             while ((linea = in.readLine()) != null)

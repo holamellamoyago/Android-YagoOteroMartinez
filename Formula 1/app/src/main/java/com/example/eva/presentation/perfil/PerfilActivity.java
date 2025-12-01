@@ -10,11 +10,15 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.eva.R;
+import com.example.eva.domain.model.Piloto;
 import com.example.eva.presentation.main.FrgPilotos;
 import com.example.eva.presentation.resultado.FrgPerfil;
 
+import java.util.IllegalFormatCodePointException;
+
 public class PerfilActivity extends AppCompatActivity {
     private FrgPerfil frgPerfil;
+    private Piloto piloto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,14 @@ public class PerfilActivity extends AppCompatActivity {
             return insets;
         });
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            piloto = (Piloto) bundle.get("piloto");
+        }
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.findFragmentById(R.id.frgPerfil);
+        frgPerfil = (FrgPerfil) fragmentManager.findFragmentById(R.id.frgPerfil);
+        frgPerfil.setPiloto(piloto);
+
     }
 }

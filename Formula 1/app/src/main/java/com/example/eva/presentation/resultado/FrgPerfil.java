@@ -42,6 +42,14 @@ public class FrgPerfil extends Fragment {
         txtTeamName = view.findViewById(R.id.txtTeamName);
         txtFullName = view.findViewById(R.id.txtFullName);
 
+
+    }
+
+    public void setPiloto(Piloto piloto) {
+        this.piloto = piloto;
+    }
+
+    private void actualizarDatos() {
         txtBroadcastName.setText(piloto.getBroadcastName());
         txtFullName.setText(piloto.getFullName());
         txtNumber.setText(piloto.getDriverNumber());

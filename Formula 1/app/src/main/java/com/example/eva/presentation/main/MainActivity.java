@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         carrera = new Carrera(getApplicationContext());
         carrera.start();
-
-
     }
 
     private void empezarCarrera() {

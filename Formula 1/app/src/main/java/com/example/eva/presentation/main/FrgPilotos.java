@@ -1,5 +1,6 @@
-package com.example.eva.presentation;
+package com.example.eva.presentation.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,8 @@ public class FrgPilotos extends Fragment {
 
         getPilotos();
 
+        lvPilotos.setOnItemClickListener((adapterView, view1, i, l) -> mostrarPerfilPiloto(pilotos.get(i).getDriverNumber()));
+
     }
 
     private void actualizarVueltas() {
@@ -100,6 +103,11 @@ public class FrgPilotos extends Fragment {
 
     public void setListener(onPilotosListener listener) {
         this.listener = listener;
+    }
+
+    private void mostrarPerfilPiloto(int numPiloto) {
+        Intent perfilIntent = new Intent();
+
     }
 
 

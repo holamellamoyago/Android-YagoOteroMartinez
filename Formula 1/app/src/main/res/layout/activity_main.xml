@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    tools:context=".presentation.main.MainActivity">
 
     <TextView
         android:id="@+id/tvFirstTitle1"
@@ -32,7 +32,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frgPilotos"
-        android:name="com.example.eva.presentation.FrgPilotos"
+        android:name="com.example.eva.presentation.main.FrgPilotos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 

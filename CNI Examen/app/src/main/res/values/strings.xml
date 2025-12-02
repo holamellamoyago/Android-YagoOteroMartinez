@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EVA</string>
+    <string name="escribe_el_destinatario">Escribe el %1$S</string>
+    <string name="title_token">Se detectó el siguiente token: %1$s</string>
+    <string name="title_control">Detectado en el control: %1$s</string>
+    <string name="title_contexto">Contexto: %1$s</string>
 </resources>

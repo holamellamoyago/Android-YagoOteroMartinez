@@ -18,7 +18,7 @@ import com.example.eva.fragmento.ControllerFrgCni;
 import com.example.eva.fragmento.FrgCniSensorIA;
 
 public class MainActivity extends AppCompatActivity {
-    ControllerFrgCni controllerFrgCni = new ControllerFrgCni();
+    ControllerFrgCni controllerFrgCni = new ControllerFrgCni(getSupportFragmentManager(), this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,28 +31,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        iniciarFragments();
-
-
-
-
+        controllerFrgCni.iniciarFragments();
 
 
     }
 
-    private void iniciarFragments() {
-        FragmentManager frgManager = getSupportFragmentManager();
-        FrgCniSensorIA frgDestinatario = (FrgCniSensorIA) frgManager.findFragmentById(R.id.frgDestinatario);
-        frgDestinatario.setTextos("Escribe el destinatario");
-
-        FrgCniSensorIA frgAsunto = (FrgCniSensorIA) frgManager.findFragmentById(R.id.frgAsunto);
-        frgAsunto.setTextos("Escribe el asunto");
-
-        FrgCniSensorIA frgMensaje = (FrgCniSensorIA) frgManager.findFragmentById(R.id.frgMensaje);
-        frgMensaje.setTextos("Escribe el mensaje");
-
-        controllerFrgCni.setFragment(frgDestinatario, frgAsunto, frgMensaje);
-    }
 
 }
 

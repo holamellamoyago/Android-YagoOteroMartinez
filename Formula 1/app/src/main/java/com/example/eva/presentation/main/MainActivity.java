@@ -15,9 +15,6 @@ import com.example.eva.thread.Carrera;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
-    public final static int NUMERO_VUELTAS = 10;
-
-
     public static FrgPilotos frgPilotos;
     private Carrera carrera;
     private ExtendedFloatingActionButton fab;
@@ -70,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // metodo pubic del fragmento
     public static void cambiarPosiciones() { // 2º Se llama a la función del fragment
         frgPilotos.listener.onPosicionCambiada(frgPilotos);
     }

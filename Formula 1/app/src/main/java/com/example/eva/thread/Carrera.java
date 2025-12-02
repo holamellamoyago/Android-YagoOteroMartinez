@@ -2,6 +2,7 @@ package com.example.eva.thread;
 
 import android.content.Context;
 
+import com.example.eva.controller.ControllerPilotos;
 import com.example.eva.controller.GestorDatabase;
 import com.example.eva.domain.model.Piloto;
 import com.example.eva.presentation.main.MainActivity;
@@ -31,7 +32,7 @@ public class Carrera extends Thread {
         gestorDatabase = new GestorDatabase(context);
         ArrayList<Piloto> pilotos = gestorDatabase.getPilotos();
 
-        for (int j = 0; j < MainActivity.NUMERO_VUELTAS; j++) {
+        for (int j = 0; j < ControllerPilotos.NUMERO_VUELTAS; j++) {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {

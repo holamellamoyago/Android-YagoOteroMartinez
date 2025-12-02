@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.eva.R;
+import com.example.eva.controller.ControllerPilotos;
 import com.example.eva.controller.GestorDatabase;
 import com.example.eva.domain.model.Piloto;
 import com.example.eva.domain.model.PilotoAdapter;
@@ -72,7 +73,7 @@ public class FrgPilotos extends Fragment {
         if (vuelta == 0) {
             tvTitleVueltas.setText("La carrera todavía no comenzó");
         } else {
-            tvTitleVueltas.setText(getString(R.string.title_vuelta, vuelta, MainActivity.NUMERO_VUELTAS));
+            tvTitleVueltas.setText(getString(R.string.title_vuelta, vuelta, ControllerPilotos.NUMERO_VUELTAS));
         }
 
         vuelta++;

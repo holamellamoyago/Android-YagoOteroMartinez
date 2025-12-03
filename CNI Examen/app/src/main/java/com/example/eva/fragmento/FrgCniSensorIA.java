@@ -1,7 +1,6 @@
 package com.example.eva.fragmento;
 
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -39,7 +38,7 @@ public class FrgCniSensorIA extends Fragment {
 
 
         // Error 1:  problema al inicar variables de widgets
-        if (hint != null) setTextos(hint);
+        if (hint != null) setHint(hint);
     }
 
     private void iniciarTextWatcher() {
@@ -68,12 +67,16 @@ public class FrgCniSensorIA extends Fragment {
         this.listener = listener;
     }
 
-    public void setTextos(String hint) {
+    public void setHint(String hint) {
         if (edTxt != null) {
             edTxt.setHint(hint);
         } else {
             this.hint = hint;
         }
+    }
+
+    public void setTexto(String texto) {
+        edTxt.setText(texto);
     }
 
     public String getText() {

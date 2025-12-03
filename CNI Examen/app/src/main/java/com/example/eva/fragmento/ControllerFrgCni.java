@@ -1,22 +1,22 @@
 package com.example.eva.fragmento;
 
-import static androidx.core.content.ContextCompat.getString;
-
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentManager;
 
 
 import com.example.eva.DeteccionActivity;
+import com.example.eva.GestorAlertas;
+import com.example.eva.MainActivity;
 import com.example.eva.R;
+import com.example.eva.clases.Alerta;
 
 import java.util.ArrayList;
 
 public class ControllerFrgCni {
-    private ArrayList<FrgCniSensorIA> fragmentos = new ArrayList<>();
+    private static ArrayList<FrgCniSensorIA> fragmentos = new ArrayList<>();
 
     private FragmentManager frgManager;
     private Context context;
@@ -36,9 +36,9 @@ public class ControllerFrgCni {
         fragmentos.add(frgAsunto);
         fragmentos.add(frgMensaje);
 
-        frgDestinatario.setTextos(context.getString(R.string.escribe_el_destinatario, "destinatario"));
-        frgAsunto.setTextos(context.getString(R.string.escribe_el_destinatario, "asunto"));
-        frgMensaje.setTextos(context.getString(R.string.escribe_el_destinatario, "mensaje"));
+        frgDestinatario.setHint(context.getString(R.string.escribe_el_destinatario, "destinatario"));
+        frgAsunto.setHint(context.getString(R.string.escribe_el_destinatario, "asunto"));
+        frgMensaje.setHint(context.getString(R.string.escribe_el_destinatario, "mensaje"));
 
         for (FrgCniSensorIA frg : fragmentos) {
             frg.setListener((frgCniSensorIA, texto) -> comprobarTextos(frgCniSensorIA, texto));
@@ -85,13 +85,23 @@ public class ControllerFrgCni {
     }
 
     private void abrirPantallaDeteccion(FrgCniSensorIA frg, String token, String contexto) {
+        // Creo el intent
         Intent detectionIntent = new Intent(context, DeteccionActivity.class);
 
-        detectionIntent.putExtra("control", frg.getTag());
-        detectionIntent.putExtra("token", token);
-        detectionIntent.putExtra("contexto", contexto);
+        // La alerta para después pasarla al bundle
+        Alerta alerta = new Alerta(token, contexto, frg.getText());
+
+        detectionIntent.putExtra("alerta", alerta);
 
         context.startActivity(detectionIntent);
     }
+
+    public static void reiniciarEditText() {
+        for (int i = 0; i < fragmentos.size(); i++) {
+            fragmentos.get(i).setTexto("");
+        }
+    }
+
+
 
 }

@@ -1,5 +1,7 @@
 package com.example.eva;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,6 +13,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.eva.clases.Alerta;
+import com.example.eva.database.AppDB;
+import com.example.eva.database.GestorDatabase;
+import com.example.eva.fragmento.ControllerFrgCni;
 import com.example.eva.fragmento.FrgCniSensorIA;
 
 public class DeteccionActivity extends AppCompatActivity {
@@ -18,6 +24,11 @@ public class DeteccionActivity extends AppCompatActivity {
     private TextView txtToken, txtContexto, txtControl;
     private CheckBox chGuardarToken;
     private Button btnValida, btnNoValida;
+
+    private GestorDatabase gestorDatabase;
+    private Alerta alerta;
+
+    private Context pantallaAnterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +49,36 @@ public class DeteccionActivity extends AppCompatActivity {
         btnValida = findViewById(R.id.btnValida);
         btnNoValida = findViewById(R.id.btnNoValida);
 
+        btnValida.setOnClickListener(v -> anadirAlertaToDatabase());
 
+        btnNoValida.setOnClickListener(v -> {
+            ControllerFrgCni.reiniciarEditText();
+            finish();
+        });
+
+
+        // Como la información pasada de otro activity
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            txtControl.setText(this.getString(R.string.title_control, bundle.getString("control")));
-            txtToken.setText(this.getString(R.string.title_token, bundle.getString("token")));
-            txtContexto.setText(this.getString(R.string.title_contexto, bundle.getString("contexto")));
+            alerta = (Alerta) bundle.get("alerta");
         }
 
+        // Ahora que ya tengo la alerta inicializo los TextView
+        txtControl.setText(this.getString(R.string.title_control, alerta.getControl()));
+        txtToken.setText(this.getString(R.string.title_token, alerta.getToken()));
+        txtContexto.setText(this.getString(R.string.title_contexto, alerta.getContexto()));
 
-        //System.out.println("yago " + frgCniSensorIA.getTag());
-        //txtControl.setText(this.getString(R.string.title_token, frgCniSensorIA.getTag()));
+        // Inicio db
+        SQLiteOpenHelper openHelper = new AppDB(this);
+        gestorDatabase = new GestorDatabase(openHelper.getWritableDatabase());
+
+
+    }
+
+    private void anadirAlertaToDatabase() {
+        gestorDatabase.anadirAlerta(alerta);
+        GestorAlertas.getAlertasFromDatabase(gestorDatabase.getAlertas());
+        ControllerFrgCni.reiniciarEditText();
+        finish();
     }
 }

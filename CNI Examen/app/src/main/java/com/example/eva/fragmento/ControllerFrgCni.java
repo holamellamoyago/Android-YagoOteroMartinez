@@ -7,9 +7,7 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 
 
-import com.example.eva.DeteccionActivity;
-import com.example.eva.GestorAlertas;
-import com.example.eva.MainActivity;
+import com.example.eva.presentation.deteccion.DeteccionActivity;
 import com.example.eva.R;
 import com.example.eva.clases.Alerta;
 
@@ -89,7 +87,7 @@ public class ControllerFrgCni {
         Intent detectionIntent = new Intent(context, DeteccionActivity.class);
 
         // La alerta para después pasarla al bundle
-        Alerta alerta = new Alerta(token, contexto, frg.getText());
+        Alerta alerta = new Alerta(token, contexto, frg.getText(), false);
 
         detectionIntent.putExtra("alerta", alerta);
 

@@ -1,4 +1,4 @@
-package com.example.eva;
+package com.example.eva.presentation.deteccion;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -13,11 +13,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.eva.GestorAlertas;
+import com.example.eva.R;
 import com.example.eva.clases.Alerta;
 import com.example.eva.database.AppDB;
 import com.example.eva.database.GestorDatabase;
 import com.example.eva.fragmento.ControllerFrgCni;
-import com.example.eva.fragmento.FrgCniSensorIA;
 
 public class DeteccionActivity extends AppCompatActivity {
 
@@ -49,12 +50,8 @@ public class DeteccionActivity extends AppCompatActivity {
         btnValida = findViewById(R.id.btnValida);
         btnNoValida = findViewById(R.id.btnNoValida);
 
-        btnValida.setOnClickListener(v -> anadirAlertaToDatabase());
-
-        btnNoValida.setOnClickListener(v -> {
-            ControllerFrgCni.reiniciarEditText();
-            finish();
-        });
+        btnValida.setOnClickListener(v -> anadirAlertaToDatabase(true));
+        btnNoValida.setOnClickListener(v -> anadirAlertaToDatabase(false));
 
 
         // Como la información pasada de otro activity
@@ -75,7 +72,8 @@ public class DeteccionActivity extends AppCompatActivity {
 
     }
 
-    private void anadirAlertaToDatabase() {
+    private void anadirAlertaToDatabase(boolean isValida) {
+        alerta.setValida(isValida);
         gestorDatabase.anadirAlerta(alerta);
         GestorAlertas.getAlertasFromDatabase(gestorDatabase.getAlertas());
         ControllerFrgCni.reiniciarEditText();

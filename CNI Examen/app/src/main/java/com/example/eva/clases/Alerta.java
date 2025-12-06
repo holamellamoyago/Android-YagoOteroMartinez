@@ -4,11 +4,21 @@ import java.io.Serializable;
 
 public class Alerta implements Serializable {
     private String token, contexto, control;
+    private boolean valida;
 
-    public Alerta(String token, String contexto, String control) {
+    public Alerta(String token, String contexto, String control, boolean valida) {
         this.token = token;
         this.contexto = contexto;
         this.control = control;
+        this.valida = valida;
+    }
+
+    public boolean isValida() {
+        return valida;
+    }
+
+    public void setValida(boolean valida) {
+        this.valida = valida;
     }
 
     public String getToken() {

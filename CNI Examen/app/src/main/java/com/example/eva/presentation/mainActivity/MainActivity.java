@@ -1,9 +1,9 @@
-package com.example.eva;
+package com.example.eva.presentation.mainActivity;
 
 
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,19 +12,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.eva.clases.Alerta;
+import com.example.eva.GestorAlertas;
+import com.example.eva.R;
 import com.example.eva.database.AppDB;
 import com.example.eva.database.GestorDatabase;
 import com.example.eva.fragmento.ControllerFrgCni;
 
 public class MainActivity extends AppCompatActivity {
-    ControllerFrgCni controllerFrgCni = new ControllerFrgCni(getSupportFragmentManager(), this);
+    ControllerFrgCni controllerFrgCni;
+    GestorDatabase gestorDatabase;
 
     private static ListView lvAlertas;
-    private static ArrayAdapter<Alerta> alertaArrayAdapter;
-
-
-    private GestorDatabase gestorDatabase;
+    private Button btnResetear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +36,25 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        gestorDatabase = new GestorDatabase(new AppDB(this).getWritableDatabase());
+        controllerFrgCni = new ControllerFrgCni(getSupportFragmentManager(), this);
+
         controllerFrgCni.iniciarFragments();
+
+        btnResetear = findViewById(R.id.btnResetear);
+        btnResetear.setOnClickListener(v -> GestorAlertas.limpiarAlertas(gestorDatabase));
 
         // Inicio el listview
         lvAlertas = findViewById(R.id.lvAlertas);
-        alertaArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, GestorAlertas.alertas);
-        lvAlertas.setAdapter(alertaArrayAdapter);
+        GestorAlertas.alertaArrayAdapter = new AlertaAdapter(this, GestorAlertas.alertas);
+        lvAlertas.setAdapter(GestorAlertas.alertaArrayAdapter);
+        GestorAlertas.getAlertasFromDatabase(gestorDatabase.getAlertas());
+
+
     }
 
     public static void reiniciarList() {
-        alertaArrayAdapter.notifyDataSetChanged();
+        GestorAlertas.alertaArrayAdapter.notifyDataSetChanged();
     }
 
 

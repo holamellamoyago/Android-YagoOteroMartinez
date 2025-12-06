@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class AppDB extends SQLiteOpenHelper {
-    static final int VERSION_DB = 3;
+    static final int VERSION_DB = 4;
     static final String NOMBRE_DB = "cni";
 
     ContentValues cv = new ContentValues();
@@ -21,7 +21,7 @@ public class AppDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String alertas_sql = "CREATE TABLE alertas (codigo INTEGER PRIMARY KEY AUTOINCREMENT, token TEXT NOT NULL, contexto TEXT, control TEXT NOT NULL)";
+        final String alertas_sql = "CREATE TABLE alertas (codigo INTEGER PRIMARY KEY AUTOINCREMENT, token TEXT NOT NULL, contexto TEXT, control TEXT NOT NULL, isValida INT NOT NULL)";
         db.execSQL(alertas_sql);
 
 //        ArrayList<Piloto> pilotos = new ArrayList<>();

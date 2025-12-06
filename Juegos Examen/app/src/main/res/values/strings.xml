@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Juegos</string>
+    <string name="libro_seleccionado">Tienes el libro %1$s seleccionado</string>
+</resources>

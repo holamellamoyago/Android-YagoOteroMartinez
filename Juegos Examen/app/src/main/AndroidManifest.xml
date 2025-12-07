@@ -13,10 +13,13 @@
         android:theme="@style/Theme.EVA"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ERC.SeleccionadorJuegoActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.libros.LibroActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.pasillo.PasilloActivity"
+            android:name=".presentation.ERC.PasilloActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"

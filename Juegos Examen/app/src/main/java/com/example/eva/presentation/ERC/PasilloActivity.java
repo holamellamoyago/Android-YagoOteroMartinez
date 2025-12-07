@@ -1,4 +1,4 @@
-package com.example.eva.presentation.pasillo;
+package com.example.eva.presentation.ERC;
 
 import android.os.Bundle;
 
@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eva.FlechasFragment;
 import com.example.eva.R;
-import com.example.eva.presentation.mainActivity.ControllerMainActivity;
 
 public class PasilloActivity extends AppCompatActivity {
     private ControllerPasillo controller;

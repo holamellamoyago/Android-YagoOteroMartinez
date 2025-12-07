@@ -7,13 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".presentation.mainActivity.MainActivity">
 
+    <EditText
+        android:id="@+id/edErrores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce número de errores máximos"
+        android:inputType="number"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <Button
         android:id="@+id/btnPasillo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Juego pasillo"
+        android:text="Juego ERTC"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/edErrores"/>
 
     <Button
         android:id="@+id/btnLibros"
@@ -22,6 +31,14 @@
         android:text="Juego libros"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPasillo" />
+
+    <TextView
+        android:id="@+id/txtInformacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hola"
+        app:layout_constraintTop_toBottomOf="@+id/btnLibros"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

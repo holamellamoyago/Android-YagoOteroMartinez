@@ -1,10 +1,8 @@
-package com.example.eva.presentation.pasillo;
+package com.example.eva.presentation.ERC;
 
 import android.content.Context;
 
 import com.example.eva.FlechasFragment;
-import com.example.eva.database.AppDB;
-import com.example.eva.database.ControllerDatabase;
 
 public class ControllerPasillo {
     private Context context;

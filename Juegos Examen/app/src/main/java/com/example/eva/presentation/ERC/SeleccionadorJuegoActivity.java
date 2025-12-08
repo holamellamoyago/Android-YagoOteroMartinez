@@ -1,5 +1,6 @@
 package com.example.eva.presentation.ERC;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -43,8 +44,18 @@ public class SeleccionadorJuegoActivity extends AppCompatActivity {
         lvRutas = findViewById(R.id.lvRutas);
         lvRutas.setAdapter(adapterRuta);
 
+        lvRutas.setOnItemClickListener((parent, view, position, id) -> abrirPantallaJuego(position));
 
 
+
+    }
+
+    private void abrirPantallaJuego(int position) {
+        Ruta ruta = (Ruta) adapterRuta.getItem(position);
+        Intent juegoIntent = new Intent(this , PasilloActivity.class);
+
+        juegoIntent.putExtra("ruta", ruta);
+        startActivity(juegoIntent);
     }
 
 

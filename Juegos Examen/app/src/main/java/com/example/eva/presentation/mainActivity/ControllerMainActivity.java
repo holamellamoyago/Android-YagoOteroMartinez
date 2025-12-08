@@ -16,7 +16,7 @@ public class ControllerMainActivity {
     private ArrayList<Partida> partidas = new ArrayList<>();
 
     private TextView txtInformacion;
-    private EditText numErroresMAX;
+    private static EditText numErroresMAX;
 
     public ControllerMainActivity(Context context) {
         this.context = context;
@@ -25,6 +25,10 @@ public class ControllerMainActivity {
 
     public EditText getNumErroresMAX() {
         return numErroresMAX;
+    }
+
+    public static int fallosPermitidos() {
+        return Integer.valueOf(numErroresMAX.getText().toString());
     }
 
     public void setNumErroresMAX(EditText numErroresMAX) {

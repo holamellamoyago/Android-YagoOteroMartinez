@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppDB extends SQLiteOpenHelper {
-    static final int VERSION_DB = 16;
+    static final int VERSION_DB = 21;
     static final String NOMBRE_DB = "f1";
     private final int NUM_LIBROS_FILA = 5;
     private final int NUM_FILAS = 4;
@@ -28,17 +28,17 @@ public class AppDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String LIBROS_SQL = "CREATE TABLE libros (TEXT nombre, INTEGER f, INTEGER c)";
+        final String LIBROS_SQL = "CREATE TABLE libros (nombre TEXT , fila INTEGER , columna INTEGER )";
         final String RUTAS_SQL = "CREATE TABLE rutas (nombre TEXT  PRIMARY KEY, ruta TEXT)";
 
-        //db.execSQL(LIBROS_SQL);
+        db.execSQL(LIBROS_SQL);
         db.execSQL(RUTAS_SQL);
 
 
         insertarEjemplos(db);
 
-        Ruta r1 = new Ruta("Escaleras", "ID");
-        Ruta r2 = new Ruta("Baño", "IIDI");
+        Ruta r1 = new Ruta("Escaleras", "UR");
+        Ruta r2 = new Ruta("Baño", "LLRL");
 
         insertarRutasEjemplo(db, new ArrayList<>(List.of(r1, r2)));
     }
@@ -63,9 +63,9 @@ public class AppDB extends SQLiteOpenHelper {
         for (int i = 0; i < NUM_FILAS; i++) {
             for (int j = 0; j < NUM_LIBROS_FILA; j++) {
                 cv.clear();
-                cv.put("nombre", "Libro " + i);
-                cv.put("f", i);
-                cv.put("c", j);
+                cv.put("nombre", "Libro " + i + j);
+                cv.put("fila", i);
+                cv.put("columna", j);
                 db.insert("libros", null, cv);
             }
 

@@ -14,9 +14,8 @@ public class ControllerLibro {
     // Fila y columna
     private int f = 0, c = 0;
 
-    public ControllerLibro(Context context, FlechasFragment frgFlechas) {
+    public ControllerLibro(Context context) {
         this.context = context;
-        this.frgFlechas = frgFlechas;
         this.controllerDatabase = new ControllerDatabase(new AppDB(context).getWritableDatabase());
     }
 
@@ -25,4 +24,11 @@ public class ControllerLibro {
             frgFlechas.getBtnIzquierda().setEnabled(false);
         }
     }
+
+    public String buscarLibro(int fila, int columna) {
+        String f = String.valueOf(fila);
+        String c = String.valueOf(columna);
+        return controllerDatabase.buscarLibro(f,c);
+    }
+
 }

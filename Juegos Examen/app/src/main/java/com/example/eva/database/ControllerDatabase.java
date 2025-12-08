@@ -34,7 +34,7 @@ public class ControllerDatabase {
         Cursor cursor = db.rawQuery(SQL, new String[]{});
         ArrayList<Ruta> rutas = new ArrayList<>();
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 String nombre, ruta;
                 nombre = cursor.getString(0);
@@ -56,7 +56,15 @@ public class ControllerDatabase {
         System.out.println("Yago: " + FILAS_TOTALES);
     }
 
+    public String buscarLibro(String f, String c) {
+        Cursor cursor = db.rawQuery("SELECT nombre FROM libros WHERE fila = ? AND columna = ?", new String[]{f, c});
 
+        if (cursor.moveToFirst()) {
+            return cursor.getString(0);
+        }
+
+        return null;
+    }
 
 
 }

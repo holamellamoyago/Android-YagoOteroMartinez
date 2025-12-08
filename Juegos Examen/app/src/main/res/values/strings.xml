@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Juegos</string>
     <string name="libro_seleccionado">Tienes el libro %1$s seleccionado</string>
+    <string name="fila">Estás en la fila: %1$s</string>
+    <string name="columna">Estás en la columna: %1$s</string>
+    <string name="libro">Libro: %1$s</string>
 </resources>

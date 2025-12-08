@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:hint="Introduce número de errores máximos"
         android:inputType="number"
+        android:text="0"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

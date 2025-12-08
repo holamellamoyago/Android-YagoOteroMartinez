@@ -11,11 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class FlechasFragment extends Fragment {
-    private Button btnArriba, btnAbajo, btnDerecha, btnIzquierda, btnEnter;
+    public Button btnArriba, btnAbajo, btnDerecha, btnIzquierda, btnEnter;
+    private OnFlechListener listener;
 
-    interface onFlechListener {
-        void onBotonPulsado(FlechasFragment frgFlecha);
+    public interface OnFlechListener {
+        void onBotonPulsado(FlechasFragment frgFlecha, char direccion);
 
+        void onBotonEnterPulsado(FlechasFragment frgFlecha);
     }
 
     @Nullable
@@ -36,6 +38,19 @@ public class FlechasFragment extends Fragment {
         btnEnter = view.findViewById(R.id.btnEnter);
         btnIzquierda = view.findViewById(R.id.btnIzquierda);
         btnDerecha = view.findViewById(R.id.btnDerecha);
+
+
+        btnArriba.setOnClickListener(v -> listener.onBotonPulsado(this, 'U')); // ingles
+        btnAbajo.setOnClickListener(v -> listener.onBotonPulsado(this, 'D'));
+        btnIzquierda.setOnClickListener(v -> listener.onBotonPulsado(this, 'L'));
+        btnDerecha.setOnClickListener(v -> listener.onBotonPulsado(this, 'R'));
+
+        btnEnter.setOnClickListener(v -> listener.onBotonEnterPulsado(this));
+    }
+
+
+    public void setListener(OnFlechListener listener) {
+        this.listener = listener;
     }
 
     public Button getBtnArriba() {

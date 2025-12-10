@@ -45,12 +45,11 @@ public class FrgBuscador extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //btn_pista = view.findViewById(R.id.btn_pista);
         tv_vidas = view.findViewById(R.id.tv_vidas);
 
         sp_marca = view.findViewById(R.id.et_marca);
-
-        //sp_marca.setOnItemClickListener((parent, view1, position, id) -> marcaSeleccionada(position));
+        spinnerAdapterMarcas = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, ControllerDatabase.cogerTotalMarcas());
+        sp_marca.setAdapter(spinnerAdapterMarcas);
         sp_marca.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -82,6 +81,8 @@ public class FrgBuscador extends Fragment {
         });
 
 
+
+
         actualizarVidas(ControllerDatabase.TOTAL_VIDAS);
         poblarSpinners();
     }
@@ -91,47 +92,10 @@ public class FrgBuscador extends Fragment {
         listener.onMarcaSeleccionada(this, marca);
     }
 
-    private void poblarSpinners() {
-        spinnerAdapterMarcas = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, ControllerDatabase.cogerTotalMarcas());
-        sp_marca.setAdapter(spinnerAdapterMarcas);
-        //sp_marca.setSelection();
-        sp_marca.setSelected(false);
-    }
-
     public void setListener(OnFrgBuscador listener) {
         this.listener = listener;
     }
 
-    public void actualizarVidas(int vidas) {
-        vidasRestantes = vidas;
-        tv_vidas.setText(vidasRestantes + "");
-    }
-
-    public boolean restarVida() {
-        int vidas = Integer.valueOf(tv_vidas.getText().toString());
-        int vidasRestantes = vidas - 1;
-        System.out.println(vidasRestantes);
-
-        if (vidasRestantes == 0) {
-            mostrarPantallaResultado(false);
-            return true;
-        }
-
-        actualizarVidas(vidasRestantes);
-        return false;
-    }
-
-    public void mostrarPantallaResultado(boolean gano) {
-        Intent resultadoActivity = new Intent(getContext(), ResultadoActivity.class);
-
-        if (gano) {
-            resultadoActivity.putExtra("resultado", "Gano la partida");
-        } else {
-            resultadoActivity.putExtra("resultado", "Perdio la partida");
-        }
-
-        startActivity(resultadoActivity);
-    }
 
     public void cambiarSpinner() {
         sp_marca.setEnabled(false);

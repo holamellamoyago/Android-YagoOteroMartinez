@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Utils.mostrarToast(getApplicationContext(), "Acertaste la marca");
                     frgBuscador.cambiarSpinner();
+
                 }
             }
 

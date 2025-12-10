@@ -45,7 +45,7 @@ public class FrgBuscador extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        btn_pista = view.findViewById(R.id.btn_pista);
+        //btn_pista = view.findViewById(R.id.btn_pista);
         tv_vidas = view.findViewById(R.id.tv_vidas);
 
         sp_marca = view.findViewById(R.id.et_marca);

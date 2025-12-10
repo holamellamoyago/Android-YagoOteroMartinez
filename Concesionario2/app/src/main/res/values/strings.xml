@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Con 2</string>
+    <string name="str_modelo">Busca tu modelo</string>
+    <string name="str_marca">Busca la marca de tu coche</string>
+    <string name="str_title_main">¡Adivina el coche!</string>
+    <string name="str_pistas">Pistas:</string>
+</resources>

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarLista();
         iniciarfragments();
+        controller.anadirPista();
 
 
     }
@@ -52,14 +53,27 @@ public class MainActivity extends AppCompatActivity {
         frgBuscador.setListener(new FrgBuscador.OnFrgBuscador() {
             @Override
             public void onMarcaSeleccionada(FrgBuscador frgBuscador, String marca) {
-                if (controller.comprobarMarca(marca)) {
+                if (marca.equals("Selecciona la marca")) return;
 
+                if (!controller.comprobarMarca(marca)) {
+                    restarVida();
+                } else {
+                    Utils.mostrarToast(getApplicationContext(), "Acertaste la marca");
+                    frgBuscador.cambiarSpinner();
                 }
             }
 
             @Override
-            public boolean onModeloSeleccionada(FrgBuscador fragment) {
+            public boolean onModeloSeleccionada(FrgBuscador fragment, String modelo) {
+                if (modelo.equals("Selecicona el coche")) return false;
 
+
+                if (!controller.comprobarModelo(modelo)){
+                    restarVida();
+                } else {
+                    Utils.mostrarToast(getApplicationContext(), "Acertaste el modelo");
+                    return true;
+                }
 
                 return false;
             }
@@ -70,6 +84,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void restarVida() {
+        if (frgBuscador.restarVida()) {
+            // Si esta funcióin devuelve true , significa que el contador de vidas llegó  a 0
+            return;
+        }
+
+        controller.anadirPista();
+        Utils.mostrarToast(getApplicationContext(), "Vaya... no acertaste...");
     }
 
 }

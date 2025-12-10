@@ -15,6 +15,7 @@ public class MainController {
     private ArrayList<String> ayudas;
     private ArrayAdapter<String> adapterArray;
 
+
     private boolean marcaAcertada;
 
     public MainController(Context context) {
@@ -60,7 +61,7 @@ public class MainController {
     public void anadirPista() {
         int i = adapterArray.getCount();
 
-        if (marcaAcertada) {
+        if (!marcaAcertada) {
             adapterArray.add(controllerDatabase.cogerPistaMarcaID(i));
         } else {
             adapterArray.add(controllerDatabase.cogerPistaModeloID(i));
@@ -68,9 +69,8 @@ public class MainController {
     }
 
     public boolean comprobarMarca(String marca) {
-        marca = marca.toUpperCase();
-        marca = marca.replaceAll(" ", "");
-        if (marca.equals(controllerDatabase.cogerMarca())){
+
+        if (marca.equals(controllerDatabase.cogerMarca())) {
             marcaAcertada = true;
             return true;
         }
@@ -79,4 +79,13 @@ public class MainController {
     }
 
 
+    public boolean comprobarModelo(String modelo) {
+
+        if (modelo.equals(controllerDatabase.cogerModelo())) {
+            marcaAcertada = true;
+            return true;
+        }
+
+        return false;
+    }
 }

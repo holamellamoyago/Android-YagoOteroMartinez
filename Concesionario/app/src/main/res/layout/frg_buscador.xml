@@ -1,33 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <Spinner
         android:id="@+id/et_marca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         android:hint="@string/str_marca"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/et_modelo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/str_modelo"
-        app:layout_constraintTop_toBottomOf="@id/et_marca"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_marca" />
 
     <Button
         android:id="@+id/btn_pista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pedir papas... :("
-        app:layout_constraintTop_toBottomOf="@id/et_modelo"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_modelo" />
 
+    <ImageView
+        android:id="@+id/btn_corazon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_modelo"
+        app:srcCompat="@drawable/favorite" />
+
+    <TextView
+        android:id="@+id/tv_vidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        app:layout_constraintRight_toLeftOf="@+id/btn_corazon"
+        app:layout_constraintTop_toBottomOf="@id/et_modelo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

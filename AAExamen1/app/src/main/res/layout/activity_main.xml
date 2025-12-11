@@ -5,16 +5,46 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.screens.MainActivity">
 
-    <TextView
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/frg_television1"
+        android:name="com.example.eva.presentation.fragments.FrgTelevision"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/frg_television2"
+        android:name="com.example.eva.presentation.fragments.FrgTelevision"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/frg_television1"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/frg_television3"
+        android:name="com.example.eva.presentation.fragments.FrgTelevision"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/frg_television2"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_resetear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hola mundo"
+        android:text="@string/str_resetear"
+        app:layout_constraintBottom_toTopOf="@+id/lv_registro"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ListView
+        android:id="@+id/lv_registro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

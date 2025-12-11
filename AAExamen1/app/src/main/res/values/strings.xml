@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">EVA</string>
+    <string name="app_name">EXA1</string>
+    <string name="str_resetear">Resetear</string>
+    <string name="str_mirar_canal">Mirar canal</string>
+    <string name="str_suscribirse">SUSCRIBIRSE A: %1$s</string>
+    <string name="str_precio_visualizaciones">Precio * visualizaciones: %1$s</string>
+    <string name="str_visualizaciones">Nº Visualizaciones:</string>
+    <string name="str_precio">Precio: %1$s €</string>
+    <string name="str_contratar">Contratar</string>
 </resources>
